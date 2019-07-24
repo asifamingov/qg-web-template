@@ -1,0 +1,64 @@
+<form class="form tooltip" action="https://test.smartservice.qld.gov.au/services/submissions/email/qig/qvac-form"
+    method="post" enctype="multipart/form-data">
+    <ol class="questions">
+        <li class="section">
+            <fieldset>
+                <legend>
+                    <span class="h2">Sample form</span>
+                </legend>
+                <ol class="questions">
+                    <li class="invalid">
+                        <label for="title"> <span class="label" id="label-title">Title</span> <abbr title="(required)"
+                                class="required">*</abbr><em class="alert">Must be completed</em> </label>
+                        <select name="title" id="title" required="">
+                            <option class="placeholder" value="">Please select…</option>
+                            <option>Mr</option>
+                            <option>Mrs</option>
+                            <option>Miss</option>
+                            <option>Ms</option>
+                            <option>Dr</option>
+                            <option>Professor</option>
+                        </select>
+                    </li>
+                    <li class="group qg-datepicker atomic invalid">
+                        <fieldset>
+                            <legend>
+                                <span class="h2">Datepicker widget</span>
+                                <abbr title="(required)" class="required">*</abbr>
+                            </legend>
+                            <ol class="questions compact">
+                                <li class="invalid">
+                                    <label for="day">
+                                        <span class="label" id="label-day">Day</span><em class="alert">Must be
+                                            completed</em><em class="alert">Must be completed</em><em class="alert">Must
+                                            be completed</em><em class="alert">Must be completed</em><em
+                                            class="alert">Must be completed</em><em class="alert">Must be completed</em>
+                                    </label>
+                                    <input type="text" name="day" size="2" value="" required="required" id="day">
+                                </li>
+                                <li>
+                                    <label for="month">
+                                        <span class="label">Month</span>
+                                    </label>
+                                    <input type="text" name="state" size="2" value="QLD" required="required" id="month">
+                                </li>
+                                <li class="invalid">
+                                    <label for="year">
+                                        <span class="label">Year</span>
+                                    </label>
+                                    <input type="text" name="postcode" size="4" value="" required="required" id="year">
+                                </li>
+                            </ol>
+                        </fieldset>
+                    </li>
+                </ol>
+            </fieldset>
+        </li>
+        <li class="footer">
+            <ul class="actions">
+                <li> <strong>
+                        <input type="submit" value="Submit"></strong> </li>
+            </ul>
+        </li>
+    </ol>
+</form>
