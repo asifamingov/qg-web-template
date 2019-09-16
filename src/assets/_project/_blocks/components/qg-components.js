@@ -7,6 +7,7 @@ import './accordion/accordion';
 import './forms/recaptcha';
 import './forms/qg-address-autocomplete';
 import './qg-document-links';
+import './datepicker/datepicker';
 import accessibility      from './accessibility/accessibility';
 
 accessibility.init();
