@@ -288,7 +288,7 @@
     total_claim_input.attr('value',total_claim);
     total_claim_input_display.text(total_claim);
 
-    if(total_claim >= 6000){
+    if(total_claim > 6000){
       $(total_claim_input)[0].setCustomValidity('Total must not exceed $6000')
     } else {
       $(total_claim_input)[0].setCustomValidity('')
