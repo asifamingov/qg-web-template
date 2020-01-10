@@ -250,8 +250,9 @@
 
     if(hasDuplicates(filtered)){
       $(this)[0].setCustomValidity('Claim dates should be different');
-      $( "<small class=\"hint\"><em>Claim dates should be different</em></small>" ).insertAfter($(this));
-      $()
+      if($(this).parent().find( ".hint").length <= 0) {
+        $( "<small class=\"hint\"><em>Claim dates should be different</em></small>" ).insertAfter($(this));
+      }
     } else {
       $(this)[0].setCustomValidity('');
       $(this).parent().find('.alert').remove();
