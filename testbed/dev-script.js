@@ -247,6 +247,19 @@
     return day + '/' + parseInt(monthIndex)+1 + '/' + year;
   }
 
+
+  function formatDateWithName(date) {
+    var monthNames = [
+      "January", "February", "March",
+      "April", "May", "June", "July",
+      "August", "September", "October",
+      "November", "December"
+    ];
+    var monthIndex = date.getMonth();
+
+    return day + ' ' + monthNames[monthIndex] + ' ' + year;
+  }
+
   $(document).on('change', '.date-input', function(){
     var dateFrom = "01/07/2019";
     var dateTo = formatDate(new Date()).toString();
@@ -267,13 +280,13 @@
     });
     $(this)[0].setCustomValidity('');
     if(hasDuplicates(filtered)){
-      $(this)[0].setCustomValidity('Claim dates should be different');
+      $(this)[0].setCustomValidity('Claim dates must be different');
       if($(this).parent().find( ".hint").length <= 0) {
-        $( "<small class=\"hint\"><em>Claim dates should be different</em></small>" ).insertAfter($(this));
+        $( "<small class=\"hint\"><em>Claim dates must be different</em></small>" ).insertAfter($(this));
       }
     }
     else if((check >= from && check <= to) === false) {
-      $(this)[0].setCustomValidity('Dates should be in the range specified');
+      $(this)[0].setCustomValidity('Dates must be between 1 July 2019 to' + ' ' + formatDateWithName(new Date()) + '');
     }
     else {
       $(this)[0].setCustomValidity('');
@@ -316,33 +329,6 @@
       $(total_claim_input)[0].setCustomValidity('')
     }
   });
-  // var minOneCheckboxGroups = [ 'member', 'volunteer-role' ],
-  //   seen = {},
-  // // check that at least one checkbox is checked
-  // minOneCheckboxCheckedCheck = function() {
-  //   var checkboxes = $( this.form.elements[ this.name ] ),
-  //     validitionMessage = ''
-  //   ;
-  //   // must have 1 item selected
-  //   if ( checkboxes.filter( ':checked' ).length === 0 ) {
-  //     validitionMessage = 'Must be completed';
-  //   }
-  //   // set validity on every checkbox in the group (UI isn't updated otherwise)
-  //   checkboxes.each(function() {
-  //     this.setCustomValidity( validitionMessage );
-  //   });
-  // };
-  // // find checkboxes
-  // minOneCheckboxGroups = $( 'input' ).filter(function() {
-  //   return $.inArray( this.name, minOneCheckboxGroups ) >= 0;
-  // });
-  // // initial validity for group
-  // minOneCheckboxGroups.each(function() {
-  //   if ( ! seen[ this.name ] ) {
-  //     seen[ this.name ] = true;
-  //     minOneCheckboxCheckedCheck.apply( this );
-  //   }
-  // })
 
   //On checkbox confirm
   replyRequested.on("change", function() {
@@ -361,18 +347,6 @@
       input_btn.prop("disabled", true);
     }
   });
-
-  // input_btn.on("click", function(event) {
-  //   console.log("continue clicked");
-  //   minOneCheckboxCheckedCheck();
-  //   mainForm.submit();
-  // });
-  // mainForm.on("submit", function(event) {
-  //   console.log("continue clicked");
-  //   minOneCheckboxCheckedCheck();
-  // });
-  //Call it regardless
-
 
   var minOneCheckboxGroups = [ 'member' , 'volunteer-role' ],
     seen = {},
