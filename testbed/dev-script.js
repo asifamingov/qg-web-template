@@ -155,7 +155,7 @@
   //Add new table append function
   $(document).on('click', '#new_excess_day', function(){
     setTimeout(function () {
-      $( ".date-input").datepicker({  minDate: new Date(2019, 7 - 1, 1), maxDate: new Date(2020, 6 - 1, 30) , dateFormat: 'dd/mm/yy', changeYear: true, changeMonth: true});
+      $( ".date-input").datepicker({  minDate: new Date(2019, 7 - 1, 1), maxDate: 0 , dateFormat: 'dd/mm/yy', changeYear: true, changeMonth: true});
     },0);
     day_increment = day_increment + 1;
     $('#total-days').attr('value',day_increment);
@@ -226,6 +226,7 @@
     }
   });
   var date_values = [];
+  var date_values_filtered = [];
 
   function hasDuplicates(array) {
     var valuesSoFar = [];
@@ -260,25 +261,61 @@
     return day + ' ' + monthNames[monthIndex] + ' ' + year;
   }
 
+  function datesValid(date){
+    var dateFrom = "01/07/2019";
+    var dateTo = formatDate(new Date()).toString();
+    var d1 = dateFrom.split("/");
+    var d2 = dateTo.split("/");
+    var c = date.split("/");
+    var parsedDate = Date.parse(date);
+    var from = new Date(d1[2], parseInt(d1[1])-1, d1[0]);  // -1 because months are from 0 to 11
+    var to   = new Date(d2[2], parseInt(d2[1])-1, d2[0]);
+    var check = new Date(c[2], parseInt(c[1])-1, c[0]);
+
+    return check >= from && check <= to
+  }
+
   $(document).on('change', '.date-input', function(){
     // entered  date is valid
     var valEntered = $(this).val();
-    console.log(Date.parse($(this).val()));
+    var datesTable = $('.tbl-volunteer-dates');
+    datesTable.find( ".format" ).remove();
     if(isNaN(valEntered) === true){
-        if(date_values.includes(valEntered)){
+         if(date_values.includes(valEntered)){
           console.log('dates are not diff');
           $(this)[0].setCustomValidity('Claim dates must be different');
-        } else {
+             if($(this).parent().find( ".hint").length <= 0) {
+               $( "<small class=\"hint\"><em>Claim dates must be different</em></small>" ).insertAfter($(this));
+             }
+         }
+         else if(datesValid(valEntered) === false) {
+           console.log('invalid dates');
+          $(this)[0].setCustomValidity('Dates must be between 1 July 2019 to' + ' ' + formatDateWithName(new Date()) + '');
+          if($(this).parent().find( ".hint").length <= 0) {
+                $( `<small class=\"hint range\"><em>Dates must be between 1 July 2019 to ${formatDateWithName(new Date())} </em></small>` ).insertAfter($(this));
+          }
+         }
+         else {
           console.log('dates are  diff');
           $(this).parent().find('.alert').remove();
+          $(this).parent().find( ".hint").remove();
           $(this)[0].setCustomValidity('');
-          date_values.push(valEntered);
+          date_values = [];
+           $('.date-input').each(function () {
+             date_values.push($(this).val());
+           });
+           date_values_filtered = date_values.filter(function (el) {
+             return el.length > 2;
+           });
         }
     } else {
       console.log('value not in correct format');
       $(this)[0].setCustomValidity('Please enter Date is correct format');
+      $( `<small class=\"hint format\"><em>Please enter Date is correct format` ).insertAfter($(this));
     }
 
+
+    console.log(date_values_filtered);
 
 // $(this)[0].setCustomValidity('')
     // var dateFrom = "01/07/2019";
