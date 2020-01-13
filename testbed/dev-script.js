@@ -274,40 +274,79 @@
 
     return check >= from && check <= to
   }
-
+  function dateExist(date) {
+    return date_values.some(function(el) {
+      return el.date === date;
+    });
+  }
+  function itemExist(idVal){
+    return date_values.find(function (x) {
+      return x.id === idVal
+    });
+  }
   $(document).on('change', '.date-input', function(){
     // entered  date is valid
     var valEntered = $(this).val();
+    var idVal = $(this).attr('id');
     var datesTable = $('.tbl-volunteer-dates');
     datesTable.find( ".format" ).remove();
+    $(this).parent().find('.alert').remove();
+    $(this).parent().find( ".hint").remove();
     if(isNaN(valEntered) === true){
-         if(date_values.includes(valEntered)){
-          console.log('dates are not diff');
-          $(this)[0].setCustomValidity('Claim dates must be different');
-             if($(this).parent().find( ".hint").length <= 0) {
-               $( "<small class=\"hint\"><em>Claim dates must be different</em></small>" ).insertAfter($(this));
-             }
+        var item = itemExist(idVal);
+        if(dateExist(valEntered)){
+            if (item) {
+              item.date = '';
+            }
+            $(this)[0].setCustomValidity('Claim dates must be different');
+            if($(this).parent().find( ".hint").length <= 0) {
+                  $( "<small class=\"hint\"><em>Claim dates must be different</em></small>" ).insertAfter($(this));
+            }
+        } else if(datesValid(valEntered) === false) {
+            if (item) {
+              item.date = '';
+            }
+           $(this)[0].setCustomValidity('Dates must be between 1 July 2019 to' + ' ' + formatDateWithName(new Date()) + '');
+           if($(this).parent().find( ".hint").length <= 0) {
+                  $( `<small class=\"hint range\"><em>Dates must be between 1 July 2019 to ${formatDateWithName(new Date())} </em></small>` ).insertAfter($(this));
+           }
          }
-         else if(datesValid(valEntered) === false) {
-           console.log('invalid dates');
-          $(this)[0].setCustomValidity('Dates must be between 1 July 2019 to' + ' ' + formatDateWithName(new Date()) + '');
-          if($(this).parent().find( ".hint").length <= 0) {
-                $( `<small class=\"hint range\"><em>Dates must be between 1 July 2019 to ${formatDateWithName(new Date())} </em></small>` ).insertAfter($(this));
+        else {
+          if (item) {
+            item.date = valEntered;
+          } else {
+            date_values.push({id: idVal, date: valEntered});
           }
-         }
-         else {
-          console.log('dates are  diff');
           $(this).parent().find('.alert').remove();
           $(this).parent().find( ".hint").remove();
           $(this)[0].setCustomValidity('');
-          date_values = [];
-           $('.date-input').each(function () {
-             date_values.push($(this).val());
-           });
-           date_values_filtered = date_values.filter(function (el) {
-             return el.length > 2;
-           });
         }
+        //  if(date_values.includes(valEntered)){
+        //   console.log('dates are not diff');
+        //   $(this)[0].setCustomValidity('Claim dates must be different');
+        //      if($(this).parent().find( ".hint").length <= 0) {
+        //        $( "<small class=\"hint\"><em>Claim dates must be different</em></small>" ).insertAfter($(this));
+        //      }
+        //  }
+        //  else if(datesValid(valEntered) === false) {
+        //    console.log('invalid dates');
+        //   $(this)[0].setCustomValidity('Dates must be between 1 July 2019 to' + ' ' + formatDateWithName(new Date()) + '');
+        //   if($(this).parent().find( ".hint").length <= 0) {
+        //         $( `<small class=\"hint range\"><em>Dates must be between 1 July 2019 to ${formatDateWithName(new Date())} </em></small>` ).insertAfter($(this));
+        //   }
+        //  }
+        //  else {
+        //   console.log('dates are  diff');
+        //   $(this).parent().find('.alert').remove();
+        //   $(this).parent().find( ".hint").remove();
+        //   $(this)[0].setCustomValidity('');
+        //    $('.date-input').each(function () {
+        //      date_values.push($(this).val());
+        //    });
+        //    date_values_filtered = date_values.filter(function (el) {
+        //      return el.length > 2;
+        //    });
+        // }
     } else {
       console.log('value not in correct format');
       $(this)[0].setCustomValidity('Please enter Date is correct format');
@@ -315,7 +354,7 @@
     }
 
 
-    console.log(date_values_filtered);
+    console.log(date_values);
 
 // $(this)[0].setCustomValidity('')
     // var dateFrom = "01/07/2019";
