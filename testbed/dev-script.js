@@ -289,8 +289,10 @@
       $(this)[0].setCustomValidity('Dates must be between 1 July 2019 to' + ' ' + formatDateWithName(new Date()) + '');
     }
     else {
-      $(this)[0].setCustomValidity('');
-      $(this).parent().find('.alert').remove();
+      $('.date-input').each(function () {
+        $(this)[0].setCustomValidity('');
+        $(this).parent().find('.alert').remove();
+      });
       $('.tbl-volunteer-dates').find( ".hint" ).remove();
     }
   });
