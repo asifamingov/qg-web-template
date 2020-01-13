@@ -307,7 +307,7 @@
             }
            $(this)[0].setCustomValidity('Dates must be between 1 July 2019 to' + ' ' + formatDateWithName(new Date()) + '');
            if($(this).parent().find( ".hint").length <= 0) {
-                  $( `<small class=\"hint range\"><em>Dates must be between 1 July 2019 to ${formatDateWithName(new Date())} </em></small>` ).insertAfter($(this));
+             $("<small class=\"hint range\"><em>Dates must be between 1 July 2019 to ".concat(formatDateWithName(new Date()), " </em></small>")).insertAfter($(this));
            }
          }
         else {
@@ -324,7 +324,7 @@
       if (item) {
         item.date = '';
       }
-      $( `<small class=\"hint format\"><em>Please enter Date is correct format</em><small>` ).insertAfter($(this));
+      $("<small class=\"hint format\"><em>Please enter Date is correct format</em><small>").insertAfter($(this));
       $(this)[0].setCustomValidity('Please enter the Date is a correct format (dd/mm/yyyy)');
     }
     console.log(date_values);
