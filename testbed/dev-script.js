@@ -155,7 +155,7 @@
   //Add new table append function
   $(document).on('click', '#new_excess_day', function(){
     setTimeout(function () {
-      $('.date-input').attr('max', maxDate);
+      $( ".date-input").datepicker({  minDate: new Date(2019, 7 - 1, 1), maxDate: new Date(2020, 6 - 1, 30) , dateFormat: 'dd/mm/yy', changeYear: true, changeMonth: true});
     },0);
     day_increment = day_increment + 1;
     $('#total-days').attr('value',day_increment);
@@ -163,7 +163,7 @@
     <tr>\
         <td>"+day_increment+"</td>\
         <td><label for=\"vol["+day_increment+"][day]\"><span class=\"label\" ><span hidden=\"hidden\">Claim Day "+day_increment+"</span></span></label>\
-        <input class='date-input' placeholder='Select a date' id='vol["+day_increment+"][day]' name='vol["+day_increment+"][day]' type='date' min='2019-07-01' required='required'></td>\
+        <input class='date-input test' placeholder='Select a date' id='vol["+day_increment+"][day]' name='vol["+day_increment+"][day]' type='text' min='2019-07-01' required='required'></td>\
         <td><label for=\"vol["+day_increment+"][claim]\"><span class=\"label\" ><span hidden=\"hidden\">Claim Value "+day_increment+"</span></span></label>\
         <input class='claim_value' placeholder='$0' type='number' minlength='1' name='vol["+day_increment+"][claim]' required='required' id='vol["+day_increment+"][claim]'></td>\
     </tr>";
@@ -239,21 +239,43 @@
     return false;
   }
 
+  function formatDate(date) {
+    var day = date.getDate();
+    var monthIndex = date.getMonth();
+    var year = date.getFullYear();
+
+    return day + '/' + parseInt(monthIndex)+1 + '/' + year;
+  }
+
   $(document).on('change', '.date-input', function(){
+    var dateFrom = "01/07/2019";
+    var dateTo = formatDate(new Date()).toString();
+    var d1 = dateFrom.split("/");
+    var d2 = dateTo.split("/");
+    var c = $(this).val().split("/");
+    var parsedDate = Date.parse($(this).val());
+    var from = new Date(d1[2], parseInt(d1[1])-1, d1[0]);  // -1 because months are from 0 to 11
+    var to   = new Date(d2[2], parseInt(d2[1])-1, d2[0]);
+    var check = new Date(c[2], parseInt(c[1])-1, c[0]);
+
     date_values = [];
     $('.date-input').each(function () {
-       date_values.push($(this).val());
+      date_values.push($(this).val());
     });
     var filtered = date_values.filter(function (el) {
       return el.length > 2;
     });
-
+    $(this)[0].setCustomValidity('');
     if(hasDuplicates(filtered)){
       $(this)[0].setCustomValidity('Claim dates should be different');
       if($(this).parent().find( ".hint").length <= 0) {
         $( "<small class=\"hint\"><em>Claim dates should be different</em></small>" ).insertAfter($(this));
       }
-    } else {
+    }
+    else if((check >= from && check <= to) === false) {
+      $(this)[0].setCustomValidity('Dates should be in the range specified');
+    }
+    else {
       $(this)[0].setCustomValidity('');
       $(this).parent().find('.alert').remove();
       $('.tbl-volunteer-dates').find( ".hint" ).remove();

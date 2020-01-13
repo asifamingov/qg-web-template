@@ -45,7 +45,16 @@
 
 
   <link href="https://oss-uat.clients.squiz.net/__data/assets/css_file_folder/0015/110823/qg-components.css?v=0.1.8" rel="stylesheet">
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+  <style>
+    .date-input,  #dob{
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: .2em .7em;
+      max-width: 100%;
+      font-family: Lato,Helvetica,Arial,sans-serif;
+    }
+  </style>
 
   <!-- Frontend Metadata -->
   <link rel="shortcut icon" href="https://oss-uat.clients.squiz.net/__data/assets/file/0018/297/favicon.ico">
@@ -470,7 +479,7 @@
                     <td>1</td>
                     <td>
                       <label for="vol[1][day]"><span class="label" ><span hidden="hidden">Claim Day 1</span></span></label>
-                      <input placeholder="Select a date" id="vol[1][day]" class="date-input" name="vol[1][day]" type="date"
+                      <input placeholder="Select a date" id="vol[1][day]" class="date-input" name="vol[1][day]" type="text"
                              min="2019-07-01" max="2020-06-30" required='required'>
                     </td>
                     <td>
@@ -484,7 +493,7 @@
                     <td>2</td>
                     <td>
                       <label for="vol[2][day]"><span class="label" ><span hidden="hidden">Claim Day 2</span></span></label>
-                      <input placeholder="Select a date" id="vol[2][day]" class="date-input" name="vol[2][day]" type="date"
+                      <input placeholder="Select a date" id="vol[2][day]" class="date-input" name="vol[2][day]" type="text"
                              min="2019-07-01" max="2020-06-30" required='required'>
                     </td>
                     <td>
@@ -499,7 +508,7 @@
                     </td>
                     <td>
                       <label for="vol[3][day]"><span class="label" ><span hidden="hidden">Claim Day 3</span></span></label>
-                      <input class="date-input" placeholder="Select a date" id="vol[3][day]" name="vol[3][day]" type="date"
+                      <input class="date-input" placeholder="Select a date" id="vol[3][day]" name="vol[3][day]" type="text"
                              min="2019-07-01" max="2020-06-30" required='required'>
                     </td>
                     <td>
@@ -514,7 +523,7 @@
                     </td>
                     <td>
                       <label for="vol[4][day]"><span class="label" ><span hidden="hidden">Claim Day 4</span></span></label>
-                      <input class="date-input" placeholder="Select a date" id="vol[4][day]" name="vol[4][day]" type="date"
+                      <input class="date-input" placeholder="Select a date" id="vol[4][day]" name="vol[4][day]" type="text"
                              min="2019-07-01" max="2020-06-30" required='required'>
                     </td>
                     <td>
@@ -529,7 +538,7 @@
                     </td>
                     <td>
                       <label for="vol[5][day]"><span class="label" ><span hidden="hidden">Claim Day 5</span></span></label>
-                      <input class="date-input" placeholder="Select a date" id="vol[5][day]" name="vol[5][day]" type="date"
+                      <input class="date-input" placeholder="Select a date" id="vol[5][day]" name="vol[5][day]" type="text"
                              min="2019-07-01" max="2020-06-30" required='required'>
                     </td>
                     <td>
@@ -544,7 +553,7 @@
                     </td>
                     <td>
                       <label for="vol[6][day]"><span class="label" ><span hidden="hidden">Claim Day 6</span></span></label>
-                      <input class="date-input" placeholder="Select a date" id="vol[6][day]" name="vol[6][day]" type="date"
+                      <input class="date-input" placeholder="Select a date" id="vol[6][day]" name="vol[6][day]" type="text"
                              min="2019-07-01" max="2020-06-30" required='required'>
                     </td>
                     <td>
@@ -559,7 +568,7 @@
                     </td>
                     <td>
                       <label for="vol[7][day]"><span class="label" ><span hidden="hidden">Claim Day 7</span></span></label>
-                      <input class="date-input" placeholder="Select a date" id="vol[7][day]" name="vol[7][day]" type="date"
+                      <input class="date-input" placeholder="Select a date" id="vol[7][day]" name="vol[7][day]" type="text"
                              min="2019-07-01" max="2020-06-30" required='required'>
                     </td>
                     <td>
@@ -574,7 +583,7 @@
                     </td>
                     <td>
                       <label for="vol[8][day]"><span class="label" ><span hidden="hidden">Claim Day 8</span></span></label>
-                      <input class="date-input" placeholder="Select a date" id="vol[8][day]" name="vol[8][day]" type="date"
+                      <input class="date-input" placeholder="Select a date" id="vol[8][day]" name="vol[8][day]" type="text"
                              min="2019-07-01" max="2020-06-30" required='required'>
                     </td>
                     <td>
@@ -589,7 +598,7 @@
                     </td>
                     <td>
                       <label for="vol[9][day]"><span class="label" ><span hidden="hidden">Claim Day 9</span></span></label>
-                      <input class="date-input" placeholder="Select a date" id="vol[9][day]" name="vol[9][day]" type="date"
+                      <input class="date-input" placeholder="Select a date" id="vol[9][day]" name="vol[9][day]" type="text"
                              min="2019-07-01" max="2020-06-30" required='required'>
                     </td>
                     <td>
@@ -604,7 +613,7 @@
                     </td>
                     <td>
                       <label for="vol[10][day]"><span class="label" ><span hidden="hidden">Claim Day 10</span></span></label>
-                      <input class="date-input" placeholder="Select a date" id="vol[10][day]" name="vol[10][day]" type="date"
+                      <input class="date-input" placeholder="Select a date" id="vol[10][day]" name="vol[10][day]" type="text"
                              min="2019-07-01" max="2020-06-30" required='required'>
                     </td>
                     <td>
@@ -619,7 +628,7 @@
                     </td>
                     <td>
                       <label for="vol[11][day]"><span class="label" ><span hidden="hidden">Claim Day 11</span></span></label>
-                      <input class="date-input" placeholder="Select a date" id="vol[11][day]" name="vol[11][day]" type="date"
+                      <input class="date-input" placeholder="Select a date" id="vol[11][day]" name="vol[11][day]" type="text"
                              min="2019-07-01" max="2020-06-30" required='required'>
                     </td>
                     <td>
@@ -697,7 +706,7 @@
                     <small class="hint">Date of birth must be DD/MM/YYYY.</small>
                     <abbr class="required" title="(required)">*</abbr>
                   </label>
-                  <input placeholder="Date of birth" id="dob" name="dob" type="date" min="1920-01-01">
+                  <input placeholder="Date of birth" id="dob" name="dob" type="text" min="1920-01-01">
                 </li>
 
                 <li class="atomic group">
@@ -1284,11 +1293,37 @@
 
 
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script src="dev-script.js"></script>
+<script>
+  $( function() {
+
+    $( ".date-input").datepicker({  minDate: new Date(2019, 7 - 1, 1), maxDate: 0 , dateFormat: 'dd/mm/yy', changeYear: true, changeMonth: true, constrainInput: true});
+    // $('body').on('blur', '.date-input', function(event) {
+    //   val = $(this).val();
+    //   val1 = Date.parse(val);
+    //   console.log(val);
+    //   // if (isNaN(val1)==true && val!==''){
+    //   //   $(this)[0].setCustomValidity('Date format should be dd/mm/yyyy');
+    //   // }
+    //   // else{
+    //   //   console.log(val1);
+    //   // }
+    //   // if (this.optional(element)) {
+    //   //   return true;
+    //   // }
+    //   //
+    //   // var startDate = Date.parse('2010-11-29'),
+    //   //   endDate = Date.parse('2010-12-15'),
+    //   //   enteredDate = Date.parse(val);
+    //
+    //
+    // });
+    $( "#dob" ).datepicker({  maxDate: '0', dateFormat: 'dd/mm/yy', changeYear: true,   changeMonth: true});
+  } );
+</script>
 <!-- endnoindex -->
 
-
-
 </body>
+</html>
 </html>
