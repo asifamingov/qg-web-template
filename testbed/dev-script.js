@@ -7,6 +7,7 @@
   var yes_eligible_1 = $('#yes_eligible_1');
   var no_eligible_1 = $('#no_eligible_1');
   var $dob = $('#dob');
+  var $postcode = $('#postcode');
 
   //Select options for employer size
   var employersize = $("#employer-size");
@@ -115,9 +116,8 @@
 
   no_eligible_1.on("change", function() {
     if ($(this).is(":checked")) {
-      if($('#noteligible-2').is(":hidden")){
-        eligible_n_1.relevance("relevant", true);
-      }
+      $('#noteligible-2').hide();
+      eligible_n_1.relevance("relevant", true);
       employer_details.relevance("relevant", false);
       personal_details.relevance("relevant", false);
       yes_eligible_1.prop('checked', false);
@@ -132,6 +132,7 @@
       personal_details.relevance("relevant", true);
       input_btn.prop("disabled", true);
     } else if ($(this).val() === other_emplpyer) {
+      $('#noteligible-2').show();
       eligible_n_2.relevance("relevant", true);
       input_btn.prop("disabled", true);
       personal_details.relevance("relevant", false);
@@ -159,6 +160,28 @@
     } else {
       // invalid
       dobField[ 0 ].setCustomValidity( 'Must be in correct format dd/mm/yyyy' );
+    }
+  });
+
+  $postcode.on("change", function() {
+    var postcodePattern = /^[0-9]{4}$/,
+      pcField = $(this),
+      value = pcField.val()
+    ;
+    // if there is no value
+    if ( value === '' ) {
+      // clear the custom error
+      pcField[ 0 ].setCustomValidity( '' );
+      // required field validation will kick in
+
+      // test if value matches pattern
+    } else if ( postcodePattern.test( value )) {
+      // valid
+      pcField[ 0 ].setCustomValidity( '' );
+
+    } else {
+      // invalid
+      pcField[ 0 ].setCustomValidity( 'Must be a four digit Postcode' );
     }
   });
 
@@ -308,9 +331,9 @@
     });
   }
   function itemExist(idVal){
-    return date_values.find(function (x) {
+    return date_values.filter(function (x) {
       return x.id === idVal
-    });
+    })[0];
   }
   $(document).on('change', '.date-input', function(){
     // entered  date is valid
