@@ -1,5 +1,6 @@
 (function($, qg) {
   "use strict";
+  var dateOptions = {  minDate: new Date(2019, 7 - 1, 1), maxDate: 0 , dateFormat: 'dd/mm/yy', changeYear: true, changeMonth: true};
 
   //Variables ---------------------------------------------------------------------------------
   //First eligibility question:
@@ -69,6 +70,8 @@
     $('#if-SES-member').relevance('relevant', false);
     input_btn.prop("disabled", true);
     $('#total-days').attr('value',day_increment);
+    $( ".date-input").datepicker(dateOptions);
+    $( "#dob" ).datepicker({  maxDate: '0', dateFormat: 'dd/mm/yy', changeYear: true,   changeMonth: true});
   }
 
   // stop future date selection
@@ -155,7 +158,7 @@
   //Add new table append function
   $(document).on('click', '#new_excess_day', function(){
     setTimeout(function () {
-      $( ".date-input").datepicker({  minDate: new Date(2019, 7 - 1, 1), maxDate: 0 , dateFormat: 'dd/mm/yy', changeYear: true, changeMonth: true});
+      $( ".date-input").datepicker(dateOptions);
     },0);
     day_increment = day_increment + 1;
     $('#total-days').attr('value',day_increment);
@@ -173,7 +176,7 @@
   remove_last.click(function() {
     if(day_increment > 11){
       day_increment = day_increment - 1;
-      $('#excess-rows tr:last-child').remove()
+      $('#excess-rows tr:last-child').remove();
       $('#total-days').attr('value',day_increment);
       var total_claim = 0;
       $('.claim_value').each(function () {
