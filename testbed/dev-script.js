@@ -335,6 +335,17 @@
       return x.id === idVal
     })[0];
   }
+  function hasDuplicates(array) {
+    var valuesSoFar = [];
+    for (var i = 0; i < array.length; ++i) {
+      var value = array[i];
+      if (valuesSoFar.indexOf(value) !== -1) {
+        return true;
+      }
+      valuesSoFar.push(value);
+    }
+    return false;
+  }
   $(document).on('change', '.date-input', function(){
     // entered  date is valid
     var valEntered = $(this).val();
@@ -343,6 +354,18 @@
     var item = itemExist(idVal);
     $(this).parent().find('.alert').remove();
     $(this).parent().find( ".hint").remove();
+    var temp = [];
+    var hasDuplicates = false;
+    $('.date-input').each(function () {
+      temp.push($(this).val());
+    });
+    var filtered = temp.filter(function (el) {
+      return el.length > 2;
+    });
+    console.log(hasDuplicates(filtered));
+    if(hasDuplicates(filtered) === false){
+      hasDuplicates=true;
+    }
     if(isNaN(valEntered) === true){
       if(dateExist(valEntered)){
         if (item) {
@@ -350,7 +373,7 @@
         }
         $(this)[0].setCustomValidity('Claim dates must be different');
         if($(this).parent().find( ".hint").length <= 0) {
-          $( "<small class=\"hint\"><em>Claim dates must be different</em></small>" ).insertAfter($(this));
+          $( "<small class=\"hint duplicate-em\"><em>Claim dates must be different</em></small>" ).insertAfter($(this));
         }
       } else if(datesValid(valEntered) === false) {
         if (item) {
@@ -378,7 +401,7 @@
       $("<small class=\"hint format\"><em>Please enter Date is correct format</em><small>").insertAfter($(this));
       $(this)[0].setCustomValidity('Please enter the Date is a correct format (dd/mm/yyyy)');
     }
-    console.log(date_values);
+    // console.log(date_values);
   });
   //Check to see if date already exists
   $(document).on('keyup', '.claim_value', function(){
