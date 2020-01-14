@@ -344,33 +344,33 @@
     $(this).parent().find('.alert').remove();
     $(this).parent().find( ".hint").remove();
     if(isNaN(valEntered) === true){
-        if(dateExist(valEntered)){
-            if (item) {
-              item.date = '';
-            }
-            $(this)[0].setCustomValidity('Claim dates must be different');
-            if($(this).parent().find( ".hint").length <= 0) {
-                  $( "<small class=\"hint\"><em>Claim dates must be different</em></small>" ).insertAfter($(this));
-            }
-        } else if(datesValid(valEntered) === false) {
-            if (item) {
-              item.date = '';
-            }
-           $(this)[0].setCustomValidity('Dates must be between 1 July 2019 to' + ' ' + formatDateWithName(new Date()) + '');
-           if($(this).parent().find( ".hint").length <= 0) {
-             $("<small class=\"hint range\"><em>Dates must be between 1 July 2019 to ".concat(formatDateWithName(new Date()), " </em></small>")).insertAfter($(this));
-           }
-         }
-        else {
-          if (item) {
-            item.date = valEntered;
-          } else {
-            date_values.push({id: idVal, date: valEntered});
-          }
-          $(this).parent().find('.alert').remove();
-          $(this).parent().find( ".hint").remove();
-          $(this)[0].setCustomValidity('');
+      if(dateExist(valEntered)){
+        if (item) {
+          item.date = '';
         }
+        $(this)[0].setCustomValidity('Claim dates must be different');
+        if($(this).parent().find( ".hint").length <= 0) {
+          $( "<small class=\"hint\"><em>Claim dates must be different</em></small>" ).insertAfter($(this));
+        }
+      } else if(datesValid(valEntered) === false) {
+        if (item) {
+          item.date = '';
+        }
+        $(this)[0].setCustomValidity('Dates must be between 1 July 2019 to' + ' ' + formatDateWithName(new Date()) + '');
+        if($(this).parent().find( ".hint").length <= 0) {
+          $("<small class=\"hint range\"><em>Dates must be between 1 July 2019 to ".concat(formatDateWithName(new Date()), " </em></small>")).insertAfter($(this));
+        }
+      }
+      else {
+        if (item) {
+          item.date = valEntered;
+        } else {
+          date_values.push({id: idVal, date: valEntered});
+        }
+        $(this).parent().find('.alert').remove();
+        $(this).parent().find( ".hint").remove();
+        $(this)[0].setCustomValidity('');
+      }
     } else {
       if (item) {
         item.date = '';
@@ -394,6 +394,8 @@
       if($(this).val() > 300){
         $(this)[0].setCustomValidity('Claim must not exceed $300')
       } else {
+        $(this).parent().find('.alert').remove();
+        $(this).parent().find( ".hint").remove();
         $(this)[0].setCustomValidity('')
       }
       function getNum(val) {
@@ -412,6 +414,7 @@
     if(total_claim > 6000){
       $(total_claim_input)[0].setCustomValidity('Total must not exceed $6000')
     } else {
+      $('#label-total-claim-amount').next('.alert').remove();
       $(total_claim_input)[0].setCustomValidity('')
     }
   });
