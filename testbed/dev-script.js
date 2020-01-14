@@ -6,6 +6,7 @@
   //First eligibility question:
   var yes_eligible_1 = $('#yes_eligible_1');
   var no_eligible_1 = $('#no_eligible_1');
+  var $dob = $('#dob');
 
   //Select options for employer size
   var employersize = $("#employer-size");
@@ -71,7 +72,7 @@
     input_btn.prop("disabled", true);
     $('#total-days').attr('value',day_increment);
     $( ".date-input").datepicker(dateOptions);
-    $( "#dob" ).datepicker({  maxDate: '0', dateFormat: 'dd/mm/yy', changeYear: true,   changeMonth: true});
+    $dob.datepicker({  maxDate: '0', dateFormat: 'dd/mm/yy', changeYear: true,   changeMonth: true});
   }
 
   // stop future date selection
@@ -134,6 +135,30 @@
       eligible_n_2.relevance("relevant", true);
       input_btn.prop("disabled", true);
       personal_details.relevance("relevant", false);
+    }
+  });
+
+  //DOB services
+  $dob.on("change", function() {
+    var dobPattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/,
+      dobField = $(this),
+      value = dobField.val()
+    ;
+
+    // if there is no value
+    if ( value === '' ) {
+      // clear the custom error
+      dobField[ 0 ].setCustomValidity( '' );
+      // required field validation will kick in
+
+      // test if value matches pattern
+    } else if ( dobPattern.test( value )) {
+      // valid
+      dobField[ 0 ].setCustomValidity( '' );
+
+    } else {
+      // invalid
+      dobField[ 0 ].setCustomValidity( 'Must be in correct format dd/mm/yyyy' );
     }
   });
 
