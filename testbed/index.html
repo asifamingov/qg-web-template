@@ -774,7 +774,7 @@
                     <small class="hint">This is a 6 digit number provided by your bank.</small>
                     <abbr class="required" title="(required)">*</abbr>
                   </label>
-                  <input type="text" name="bsb-number" minlength="2" min="2" max="7" maxlength="7" required="required" id="bsb-number">
+                  <input type="text" name="bsb-number" pattern="^[0-9]{3}-[0-9]{3}$" minlength="2" min="2" max="7" maxlength="7" required="required" id="bsb-number">
                 </li>
 
                 <li class="atomic group">
@@ -1020,7 +1020,7 @@
 
       <form id="qg-page-feedback-form"
             method="post"
-            action="https://test.smartservice.qld.gov.au/services/submissions/email/feedback/feedback" class="form" data-recaptcha="false">
+            action="https://www.smartservice.qld.gov.au/services/submissions/email/feedback/feedback" class="form" data-recaptcha="true">
 
         <ol class="questions">
           <li>
@@ -1266,5 +1266,16 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script src="dev-script.js"></script>
+
+<!--<script>-->
+<!--  $( function() {-->
+<!--    $( ".date-input").datepicker({  minDate: new Date(2019, 7 - 1, 1), maxDate: 0 , dateFormat: 'dd/mm/yy', changeYear: true, changeMonth: true});-->
+<!--    $( "#dob" ).datepicker({  maxDate: '0', dateFormat: 'dd/mm/yy', changeYear: true,   changeMonth: true});-->
+<!--  } );-->
+<!--</script>-->
+<!-- endnoindex -->
+
+
+
 </body>
 </html>

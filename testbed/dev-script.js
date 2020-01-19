@@ -186,23 +186,30 @@
     }
   });
 
-  $bsb.on("keyup", function() {
+
+  // BSB validation
+
+  // BSB validation
+
+
+  $bsb.on("change", function(e) {
     var $this = $(this);
     var value = $this.val();
-    var bsbPattern = /^[0-9-]{7}$/;
+    var bsbPattern = /^[0-9]{3}-[0-9]{3}$/;
     var format = $this.val().split("-").join(""); // remove hyphens
+    console.log('format', format);
     if (format.length > 0) {
       format = format.match(new RegExp('.{1,3}', 'g')).join("-");
     }
     $this.val(format);
     // if there is no value
-    if ( value === '' ) {
+    if ( $(this).val() === '' ) {
       // clear the custom error
       $this[ 0 ].setCustomValidity( '' );
       // required field validation will kick in
 
       // test if value matches pattern
-    } else if ( bsbPattern.test( value )) {
+    } else if ( bsbPattern.test( $(this).val() )) {
       // valid
       $(this).parent().find('.alert').remove();
       $this[ 0 ].setCustomValidity( '' );
