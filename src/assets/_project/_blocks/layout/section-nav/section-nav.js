@@ -1,6 +1,6 @@
 'use strict';
 
-var activeSideNav = (function () {
+const activeSideNav = (function () {
   // const currentFilename = window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1);
 
   function refineText (text) {
