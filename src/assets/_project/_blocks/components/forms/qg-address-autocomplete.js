@@ -3,7 +3,7 @@ let qgInitAutocompleteAddress;
 
 (function (qg, $) {
   'use strict';
-  let inputLocationId = 'qg-location-autocomplete';
+  const inputLocationId = 'qg-location-autocomplete';
   let addressSelection = false;
 
   const el = {
@@ -17,13 +17,17 @@ let qgInitAutocompleteAddress;
   // getting and setting input fields value using query parameter
   var setsValue = function () {
     el.$form.find(':input:not(:checkbox):not(:radio), select, textarea').each(function () {
-      let name = $(this).attr('name');
-      let getParameterVal = qg.swe.getParameterByName($(this).attr('name'));
-      getParameterVal !== false ? $('[name="' + name + '"]').val(getParameterVal) : '';
+      const name = $(this).attr('name');
+      const getParameterVal = qg.swe.getParameterByName($(this).attr('name'));
+      if (getParameterVal !== false) {
+        $('[name="' + name + '"]').val(getParameterVal);
+      }
     }).end().find('input[type=checkbox], input[type=radio]').each(function () {
-      let name = $(this).attr('name');
-      let getParameterVal = qg.swe.getParameterByName(name);
-      getParameterVal !== false ? $('[value="' + getParameterVal + '"]').prop('checked', true) : '';
+      const name = $(this).attr('name');
+      const getParameterVal = qg.swe.getParameterByName(name);
+      if (getParameterVal !== false) {
+        $('[value="' + getParameterVal + '"]').prop('checked', true);
+      }
     });
   };
   setsValue();
@@ -47,45 +51,45 @@ let qgInitAutocompleteAddress;
     }
   });
   if ($('.' + inputLocationId).length > 0) {
-    let getLocationEle = $('.qg-app-geocoding');
+    const getLocationEle = $('.qg-app-geocoding');
     qgInitAutocompleteAddress = () => {
-      let qldBounds = new google.maps.LatLngBounds(
+      const qldBounds = new google.maps.LatLngBounds(
         new google.maps.LatLng(-29, 138.0578426),
         new google.maps.LatLng(-9.9339, 153.63831));
-      let inputLocationEle = document.getElementsByClassName(inputLocationId);
-      let addressFormId = 'qg-address-autocomplete';
+      const inputLocationEle = document.getElementsByClassName(inputLocationId);
+      const addressFormId = 'qg-address-autocomplete';
       $.each(inputLocationEle, function () {
-        let dataStrictBounds = $(this).data('strictbounds') || true;
-        let options = {
+        const dataStrictBounds = $(this).data('strictbounds') || true;
+        const options = {
           bounds: qldBounds,
           strictBounds: dataStrictBounds,
           types: ['geocode'],
         };
-        let autocomplete = new google.maps.places.Autocomplete(this, options);
+        const autocomplete = new google.maps.places.Autocomplete(this, options);
         //if address form exists fill the selection
-        let form = $(this).siblings('.' + addressFormId);
+        const form = $(this).siblings('.' + addressFormId);
         if (form.length > 0) {
-          let formFields = {
-            street_number: {dataType: 'street', name: 'short_name'},
-            route: {dataType: 'street', name: 'long_name'},
-            locality: {dataType: 'city', name: 'long_name'},
-            administrative_area_level_1: {dataType: 'state', name: 'short_name'},
-            country: {dataType: 'country', name: 'long_name'},
-            postal_code: {dataType: 'zip', name: 'short_name'},
+          const formFields = {
+            street_number: { dataType: 'street', name: 'short_name' },
+            route: { dataType: 'street', name: 'long_name' },
+            locality: { dataType: 'city', name: 'long_name' },
+            administrative_area_level_1: { dataType: 'state', name: 'short_name' },
+            country: { dataType: 'country', name: 'long_name' },
+            postal_code: { dataType: 'zip', name: 'short_name' },
           };
-          let fillInAddress = () => {
-            let loc = autocomplete.getPlace();
+          const fillInAddress = () => {
+            const loc = autocomplete.getPlace();
             if ($('.error-handler').length > 0) { $('.error-handler').html(''); }
             //clear form
             $.each(formFields, (i, v) => {
               form.find('input[data-type="' + v.dataType + '"]').val('');
             });
             for (let i = 0; i < loc.address_components.length; i++) {
-              let type = loc.address_components[i].types[0];
+              const type = loc.address_components[i].types[0];
               if (formFields[type] !== undefined && formFields[type].dataType !== undefined) {
-                let inputEle = form.find('input[data-type="' + formFields[type].dataType + '"]');
+                const inputEle = form.find('input[data-type="' + formFields[type].dataType + '"]');
                 if (inputEle.length > 0) {
-                  let val = inputEle.val() + ' ' + loc.address_components[i][formFields[type].name];
+                  const val = inputEle.val() + ' ' + loc.address_components[i][formFields[type].name];
                   inputEle.val(val);
                   inputEle.change();
                 }
@@ -120,21 +124,21 @@ let qgInitAutocompleteAddress;
             var errorMessage = $('<p class="text-danger font-italic pt-2 pl-2">No result found</p>');
             var errorHandler = $('<div class="error-handler"></div>');
             if (!$('.error-handler').length > 0) { errorHandler.insertAfter(formContainer); }
-            let itemFull = $('.pac-container .pac-item:first').text();
-            let itemQuery = $('.pac-container .pac-item:first .pac-item-query').text();
-            let firstResult = itemQuery + ' ' + itemFull.substring(itemQuery.length);
+            const itemFull = $('.pac-container .pac-item:first').text();
+            const itemQuery = $('.pac-container .pac-item:first .pac-item-query').text();
+            const firstResult = itemQuery + ' ' + itemFull.substring(itemQuery.length);
             if (e.keyCode === 13 || e.keyCode === 9) {
               e.preventDefault();
               if (firstResult.length > 1 && reqReady === true) {
                 $('.qg-location-autocomplete').val(firstResult);
-                let geocoder = new google.maps.Geocoder();
-                geocoder.geocode({ 'address': firstResult }, function (results, status) {
+                const geocoder = new google.maps.Geocoder();
+                geocoder.geocode({ address: firstResult }, function (results, status) {
                   if (status === 'OK') {
                     reqReady = false;
                     if (results) {
                       $('.qg-location-autocomplete').val(results[0].formatted_address);
-                      let latitude = results[0].geometry.location.lat();
-                      let longitude = results[0].geometry.location.lng();
+                      const latitude = results[0].geometry.location.lat();
+                      const longitude = results[0].geometry.location.lng();
                       $('.error-handler').html('');
                       addressSelection = true;
                       el.$searchWidget.find(el.$latitude).val(latitude)
@@ -168,17 +172,17 @@ let qgInitAutocompleteAddress;
           $(ele).on('click', function (event) {
             event.preventDefault();
             if (navigator.geolocation) {
-              let showLocation = (position) => {
-                let latitude = position.coords.latitude;
-                let longitude = position.coords.longitude;
-                let latlng = {lat: parseFloat(latitude), lng: parseFloat(longitude)};
-                let geocoder = new google.maps.Geocoder();
-                let locationInput = $(this).siblings('.' + inputLocationId);
+              const showLocation = (position) => {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                const latlng = { lat: parseFloat(latitude), lng: parseFloat(longitude) };
+                const geocoder = new google.maps.Geocoder();
+                const locationInput = $(this).siblings('.' + inputLocationId);
                 el.$searchWidget.find(el.$latitude).val(latitude)
                   .end()
                   .find(el.$longitude).val(longitude);
                 if (locationInput.length > 0) {
-                  geocoder.geocode({'location': latlng}, (results, status) => {
+                  geocoder.geocode({ location: latlng }, (results, status) => {
                     if (status === 'OK') {
                       if ($('.error-handler').length > 0) { $('.error-handler').html(''); }
                       if (results[1]) {
@@ -193,14 +197,14 @@ let qgInitAutocompleteAddress;
                   });
                 }
               };
-              let errorHandler = (err) => {
+              const errorHandler = (err) => {
                 if (err.code === 1) {
                   alert('Error: Access is denied!');
                 } else if (err.code === 2) {
                   alert('Error: Position is unavailable!');
                 }
               };
-              let options = {timeout: 60000};
+              const options = { timeout: 60000 };
               navigator.geolocation.getCurrentPosition(showLocation, errorHandler, options);
             } else {
               // Browser doesn't support Geolocation

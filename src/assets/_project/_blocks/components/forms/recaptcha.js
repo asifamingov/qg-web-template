@@ -9,13 +9,15 @@
 import keys from '../../data/qg-google-keys';
 
 (function ($, swe) {
-  let checkEnv = window.location.hostname.search(/\bdev\b|\btest\b|\blocalhost\b|\bgithub\b|\buat\b/);
-  let $feedbackForm = $('#qg-page-feedback-form');
+  const checkEnv = window.location.hostname.search(/\bdev\b|\btest\b|\blocalhost\b|\bgithub\b|\buat\b/);
+  const $feedbackForm = $('#qg-page-feedback-form');
 
   if ($feedbackForm.length > 0) {
-    let setUrlEnableCaptcha = () => {
+    const setUrlEnableCaptcha = () => {
       // if environment is not PROD then use test submission handler link
-      checkEnv !== -1 ? $feedbackForm.attr('action', 'https://test.smartservice.qld.gov.au/services/submissions/email/feedback/feedback') : '';
+      if (checkEnv !== -1) {
+        $feedbackForm.attr('action', 'https://test.smartservice.qld.gov.au/services/submissions/email/feedback/feedback');
+      }
       // if data-recaptcha attribute is not present then insert it
       if ($feedbackForm.attr('data-recaptcha') === undefined) {
         $feedbackForm.attr('data-recaptcha', 'true');
@@ -24,17 +26,17 @@ import keys from '../../data/qg-google-keys';
     setUrlEnableCaptcha();
   }
 
-  let googleRecaptchaApiKey = checkEnv !== -1
+  const googleRecaptchaApiKey = checkEnv !== -1
     ? keys.defGoogleRecaptcha.uat
     : keys.defGoogleRecaptcha.prod;//This is a v2 key
-  let footerFeedbackGoogleRecaptchaApiKey = checkEnv !== -1
+  const footerFeedbackGoogleRecaptchaApiKey = checkEnv !== -1
     ? keys.defFeedbackGoogleRecaptcha.uat
     : keys.defFeedbackGoogleRecaptcha.prod;//This is a v3 key
   //v3 Captcha, can have multiples
-  let v3Captcha = (form, greptcha, key, action) => {
+  const v3Captcha = (form, greptcha, key, action) => {
     //console.log('v3 key: ' + key);
     try {
-      grecaptcha.execute(key, {action: action})
+      grecaptcha.execute(key, { action: action })
         .then(function (token) {
           if (greptcha.length > 0) {
             if (
@@ -54,7 +56,7 @@ import keys from '../../data/qg-google-keys';
   };
 
   //v2 Captcha, usually is singular
-  let v2Captcha = (form, subBtn, key) => {
+  const v2Captcha = (form, subBtn, key) => {
     try {
       //console.log('v2 key: ' + key);
       grecaptcha.render(subBtn, {
@@ -81,7 +83,7 @@ import keys from '../../data/qg-google-keys';
   };
 
   let loadedRecaptcha = false;
-  let onloadRecaptcha = () => {
+  const onloadRecaptcha = () => {
     grecaptcha.ready(function () {
     // eslint-disable-line
     //v2 Forms
@@ -90,11 +92,11 @@ import keys from '../../data/qg-google-keys';
           .find('input[type="submit"], button[type="submit"]')
           .on('click', e => {
             e.preventDefault();
-            let subBtn = e.target;
-            let form = $(subBtn).parents('form');
+            const subBtn = e.target;
+            const form = $(subBtn).parents('form');
             var greptcha = form.find('input[name="g-recaptcha-response"]');
-            let manualSitekey = form.attr('data-sitekey');
-            let manualAction = form.attr('data-action');
+            const manualSitekey = form.attr('data-sitekey');
+            const manualAction = form.attr('data-action');
             if (form.attr('id') === 'qg-page-feedback-form') { //Footer feedback
               v3Captcha(form, greptcha, footerFeedbackGoogleRecaptchaApiKey, 'feedback');
             } else if (manualSitekey !== undefined && manualAction !== undefined) { //v3 manual form
@@ -121,8 +123,8 @@ import keys from '../../data/qg-google-keys';
     //enable recaptcha on form submits, load latest v3 version of recaptcha
     let v2Loaded = false;
     $('form[data-recaptcha="true"]').each(function () {
-      let manualSitekey = $(this).attr('data-sitekey');
-      let manualAction = $(this).attr('data-action');
+      const manualSitekey = $(this).attr('data-sitekey');
+      const manualAction = $(this).attr('data-action');
       if ($(this).attr('id') === 'qg-page-feedback-form') { //Footer feedback
         //Only load if the feedback button is clicked
         loadFooter = true;
@@ -130,8 +132,8 @@ import keys from '../../data/qg-google-keys';
         swe.ajaxCall(
           'https://www.google.com/recaptcha/api.js?render=' + manualSitekey,
           'script',
-           onloadRecaptcha,
-          'Recaptcha unavailable'
+          onloadRecaptcha,
+          'Recaptcha unavailable',
         );
       } else if (manualSitekey === undefined && manualAction !== undefined) {
         requireDefaultKey = true;
@@ -141,7 +143,7 @@ import keys from '../../data/qg-google-keys';
             'https://www.google.com/recaptcha/api.js',
             'script',
             onloadRecaptcha,
-            'Recaptcha unavailable'
+            'Recaptcha unavailable',
           );
           v2Loaded = true;
         }
@@ -149,14 +151,14 @@ import keys from '../../data/qg-google-keys';
     });
     //As v3 key is used in footer and could also be used on the page with a differnt action, we need to ensure we only load it once
     if (requireDefaultKey) {
-        //load right away
-        swe.ajaxCall(
-          'https://www.google.com/recaptcha/api.js?render=' + footerFeedbackGoogleRecaptchaApiKey,
-          'script',
-          onloadRecaptcha,
-          'Recaptcha unavailable'
-        );
-      } else {
+      //load right away
+      swe.ajaxCall(
+        'https://www.google.com/recaptcha/api.js?render=' + footerFeedbackGoogleRecaptchaApiKey,
+        'script',
+        onloadRecaptcha,
+        'Recaptcha unavailable',
+      );
+    } else {
       if (loadFooter) {
         //Only load if the feedback button is clicked
         $('#page-feedback-useful').one('click', function () {
@@ -164,7 +166,7 @@ import keys from '../../data/qg-google-keys';
             'https://www.google.com/recaptcha/api.js?render=' + footerFeedbackGoogleRecaptchaApiKey,
             'script',
             onloadRecaptcha,
-            'Recaptcha unavailable'
+            'Recaptcha unavailable',
           );
         });
       }

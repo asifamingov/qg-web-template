@@ -6,16 +6,16 @@
  */
 
 (function ($) {
-  let accordion = '.qg-accordion';
+  const accordion = '.qg-accordion';
   if ($(accordion).length > 0) {
     let tabindex = 1;
-    let accordionControls = 'input[name=control]';
+    const accordionControls = 'input[name=control]';
     let linkedpanel =  window.location.hash && $('input[aria-controls=' + window.location.hash.substring(1) + ']');
 
     //Handle events of accordion inputs
     $(accordion).find('article input').on('change', function () {
-      let checkedStatus = $(this).prop('checked');
-      let controlledPanedId = $('#' + $(this).attr('aria-controls'));
+      const checkedStatus = $(this).prop('checked');
+      const controlledPanedId = $('#' + $(this).attr('aria-controls'));
       $(this)
         .attr('aria-expanded', checkedStatus) //sets aria
         .parents(accordion).find(accordionControls).prop('checked', false); //clears expand/collapse selection
@@ -44,7 +44,7 @@
         linkedpanel.parents(accordion).find('~ article input').prop('checked', false); //clears expand/collapse selection
         linkedpanel.prop('checked', true);
         $('html, body').animate({
-          'scrollTop': linkedpanel.offset().top,
+          scrollTop: linkedpanel.offset().top,
         }, 500);
       }
     };

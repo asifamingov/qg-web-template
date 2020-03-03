@@ -33,7 +33,7 @@ module.exports = (cb) => {
           alwaysAuth: true,
         };
 
-        npm.registry.adduser(uri, {auth: auth}, function (err, data, raw, res) {
+        npm.registry.adduser(uri, { auth: auth }, function (err, data, raw, res) {
           if (err) throw err;
           console.log('logged in as ' + auth.username);
 

@@ -7,8 +7,8 @@ import keys from '../data/qg-google-keys';
 (function (qg, $) {
   'use strict';
   let googleApiKey;
-  let firstFolderPath = location.pathname.split('/')[1];
-  let $mapImg = $('.qg-static-map');
+  const firstFolderPath = location.pathname.split('/')[1];
+  const $mapImg = $('.qg-static-map');
 
   // check if the hostname contains a specific word and assign the key accordingly
   if (window.location.hostname.search(/\bgithub\b/) !== -1) {
@@ -28,17 +28,17 @@ import keys from '../data/qg-google-keys';
     });
   }
   function generateStaticMapImg (ele) {
-    let lat = ele.attr('data-lat') || -27.4673;
-    let lon = ele.attr('data-long') || 153.0233;
-    let zoom = ele.attr('data-zoom') || 17;
-    let height = ele.attr('data-height') || 189;
+    const lat = ele.attr('data-lat') || -27.4673;
+    const lon = ele.attr('data-long') || 153.0233;
+    const zoom = ele.attr('data-zoom') || 17;
+    const height = ele.attr('data-height') || 189;
     return 'https://maps.googleapis.com/maps/api/staticmap?size=373x' + height + '&maptype=roadmap&markers=' + lat + '%2C' + lon + '&key=' + googleApiKey + '&sensor=false&zoom=' + zoom;
   }
 
   if ($mapImg.length > 0) {
     var htmlInsert = $('<div>');
     $mapImg.each(function () {
-      let $this = $(this);
+      const $this = $(this);
       $this.find('img').attr('src', generateStaticMapImg($this.find('img')));
       htmlInsert.append($this);
     });
@@ -51,7 +51,7 @@ import keys from '../data/qg-google-keys';
   }
   //load Google APi
   qg.loadGoogle = function (callback) {
-    let next = () => {
+    const next = () => {
       if (typeof callback === 'function') {
         callback();
       } else {
@@ -59,8 +59,8 @@ import keys from '../data/qg-google-keys';
       }
     };
     if ($('#googleapi').length <= 0) {
-      let s = document.createElement('script');
-      let u = `https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&region=AU&libraries=places`;
+      const s = document.createElement('script');
+      const u = `https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&region=AU&libraries=places`;
       s.type = 'text/javascript';
       s.id = 'googleapi';
       s.src = u;

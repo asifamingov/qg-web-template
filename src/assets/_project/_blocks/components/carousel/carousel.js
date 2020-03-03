@@ -2,11 +2,11 @@
 'use strict';
 
 (function ($) {
-  let carousels = [];
-  let eqHeight = (carousels) => {
+  const carousels = [];
+  const eqHeight = (carousels) => {
     carousels.forEach(function (e) {
-      let items = $('#' + e + '').find('.carousel-item');
-      let heights = [];
+      const items = $('#' + e + '').find('.carousel-item');
+      const heights = [];
       let tallest;
       if (items.length) {
         var normalizeHeights = function () {
@@ -31,7 +31,7 @@
     });
   };
   $('.qg-featured .carousel.slide').each(function (i, e) {
-    let carousel = $(e).attr('id');
+    const carousel = $(e).attr('id');
     carousels.push(carousel);
     $(this).attr('data-state', 'cycle');
     $('#' + carousel + '').find('.toggleCarousel').click(function (e) {
@@ -46,4 +46,3 @@
     eqHeight(carousels);
   };
 })(jQuery);
-

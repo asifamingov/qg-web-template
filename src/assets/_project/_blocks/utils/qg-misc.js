@@ -12,8 +12,8 @@
     if (name == null) return false;
     if (!url) url = window.location.href;
     name = name.replace(/[\\[\]]/g, '\\$&');
-    let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
-    let results = regex.exec(url);
+    const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+    const results = regex.exec(url);
     if (!results || !results[2]) return false;
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
   };

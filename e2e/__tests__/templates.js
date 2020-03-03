@@ -4,10 +4,9 @@ const ct = require('../config/constants');
 let browser;
 let page;
 
-
 beforeAll(async () => {
   browser = await puppeteer.launch({
-    executablePath: ct.CHROME_PATH
+    executablePath: ct.CHROME_PATH,
   });
   page = await browser.newPage();
   await page.setViewport({ width: ct.BT_XL, height: ct.WH });

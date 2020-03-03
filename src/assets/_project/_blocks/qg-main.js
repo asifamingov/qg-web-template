@@ -22,10 +22,9 @@ import feedbackForm       from './layout/footer/feedback-form';
 
 (function () {
   'use strict';
-  let franchiseTitle = qg && qg.swe && qg.swe.franchiseTitle;
+  const franchiseTitle = qg && qg.swe && qg.swe.franchiseTitle;
   activeSideNav.highlightNavItem();
   stepNav.init();
   feedbackForm.init(franchiseTitle);
   shareLinks.init();
 }());
-

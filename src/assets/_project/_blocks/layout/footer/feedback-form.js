@@ -16,8 +16,8 @@ function sanitize (str) {
     .replace(/}/g, '&#124;'); // strip )
 }
 // the script try to predict browser name from the User-Agent
-let browserName = (function () {
-  let ua = navigator.userAgent;
+const browserName = (function () {
+  const ua = navigator.userAgent;
   let tem;
   let M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
   if (/trident/i.test(M[1])) {

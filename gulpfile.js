@@ -55,7 +55,7 @@ gulp.task('template-pages', require('./gulp/build-tasks/template-pages')(gulp, p
 gulp.task('template-pages-docs', require('./gulp/build-tasks/template-pages')(gulp, plugins, config, 'docs', 'docs'));
 gulp.task('template-pages-to-docs', require('./gulp/build-tasks/template-pages')(gulp, plugins, config, 'template-pages', 'docs/pagemodels'));
 
-let assetDests = ['assets', 'docs/assets'];
+const assetDests = ['assets', 'docs/assets'];
 gulp.task('scss', require('./gulp/common-tasks/scss')(gulp, plugins, config, assetDests, addSrc));
 gulp.task('js', require('./gulp/common-tasks/js')(gulp, plugins, config, gulpWebpack, assetDests));
 
@@ -85,7 +85,7 @@ gulp.task('release', gulp.series(
 });
 
 /* LOCAL SERVER */
-let randomPort = Math.floor(1000 + Math.random() * 9000);
+const randomPort = Math.floor(1000 + Math.random() * 9000);
 gulp.task('serve', require('./gulp/build-tasks/serve')(gulp, plugins, connect, connectssi, argv, path, randomPort));
 
 /* TEST TASKS */
@@ -159,4 +159,3 @@ gulp.task('watch:docs', function (done) {
 
 gulp.task('watch', gulp.series('watch:project', 'watch:docs', 'serve'));
 gulp.task('watch:serve', gulp.series('watch', 'serve'));
-

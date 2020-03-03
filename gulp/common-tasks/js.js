@@ -4,11 +4,11 @@
 /*const CopyWebpackPlugin = require('copy-webpack-plugin');*/
 module.exports = function (gulp, plugins, config, webpack, destFolder, type = 'build') {
   return function (cb) {
-    let src = [
+    const src = [
       `${config.basepath.src}/assets/_project/_blocks/qg-main.js`,
     ];
     //.concat(config.build.excludes); remove excludes
-    let dest = {
+    const dest = {
       base: `${config.basepath.build}`,
       ext: `${config.versionName}/latest/js`,
     };
@@ -20,7 +20,7 @@ module.exports = function (gulp, plugins, config, webpack, destFolder, type = 'b
       destFolder = [destFolder];
     }
 
-    let webpackSettings = {
+    const webpackSettings = {
       output: {
         filename: 'qg-main.js',
       },
@@ -75,11 +75,11 @@ module.exports = function (gulp, plugins, config, webpack, destFolder, type = 'b
     // }
 
     return gulp.src(src)
-        .pipe(webpack(webpackSettings))
-        .pipe(plugins.if(typeof destFolder[0] !== 'undefined', gulp.dest(`${dest.base}/${destFolder[0]}/${dest.ext}`)))
-        .pipe(plugins.if(typeof destFolder[1] !== 'undefined', gulp.dest(`${dest.base}/${destFolder[1]}/${dest.ext}`)))
-        .pipe(plugins.if(typeof destFolder[2] !== 'undefined', gulp.dest(`${dest.base}/${destFolder[2]}/${dest.ext}`)))
-        .pipe(plugins.if(typeof destFolder[3] !== 'undefined', gulp.dest(`${dest.base}/${destFolder[3]}/${dest.ext}`)))
-        .pipe(plugins.if(typeof destFolder[4] !== 'undefined', gulp.dest(`${dest.base}/${destFolder[4]}/${dest.ext}`)));
+      .pipe(webpack(webpackSettings))
+      .pipe(plugins.if(typeof destFolder[0] !== 'undefined', gulp.dest(`${dest.base}/${destFolder[0]}/${dest.ext}`)))
+      .pipe(plugins.if(typeof destFolder[1] !== 'undefined', gulp.dest(`${dest.base}/${destFolder[1]}/${dest.ext}`)))
+      .pipe(plugins.if(typeof destFolder[2] !== 'undefined', gulp.dest(`${dest.base}/${destFolder[2]}/${dest.ext}`)))
+      .pipe(plugins.if(typeof destFolder[3] !== 'undefined', gulp.dest(`${dest.base}/${destFolder[3]}/${dest.ext}`)))
+      .pipe(plugins.if(typeof destFolder[4] !== 'undefined', gulp.dest(`${dest.base}/${destFolder[4]}/${dest.ext}`)));
   };
 };

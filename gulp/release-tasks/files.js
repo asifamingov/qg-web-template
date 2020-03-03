@@ -1,4 +1,3 @@
-const cssnano = require('cssnano');
 module.exports = function (gulp, plugins, config, es, webpack, path, banner) {
   return function (done) {
     const target = [
@@ -14,7 +13,7 @@ module.exports = function (gulp, plugins, config, es, webpack, path, banner) {
       `!**/${config.versionName}/**/*.js`, // handled by JS task that minifies
       `!**/${config.versionName}/**/*.css`, // handled by SCSS -> CSS task that minifies
     ].concat(config.release.excludes);
-    let includesLink = {
+    const includesLink = {
       cdnRegex: new RegExp('="(/)?assets/includes-cdn/', 'g'),
       localRegex: new RegExp('="(/)?assets/includes-local/', 'g'),
       cdnReplacement: '="$1assets/includes-cdn/',
@@ -46,8 +45,8 @@ module.exports = function (gulp, plugins, config, es, webpack, path, banner) {
     //JS task
     gulp.src([`${config.basepath.build}/assets/${config.versionName}/**/*.js`, `!${config.basepath.build}/assets/${config.versionName}/**/lib/*.js`], { dot: true })
       .pipe(plugins.foreach(function (stream, file) {
-        let filename = path.basename(file.path);
-        let destPath = file.path.split(file.base)[1].split(filename)[0];
+        const filename = path.basename(file.path);
+        const destPath = file.path.split(file.base)[1].split(filename)[0];
         return stream
           .pipe(plugins.webpack({
             output: {
@@ -69,10 +68,6 @@ module.exports = function (gulp, plugins, config, es, webpack, path, banner) {
 
     //CSS task
     gulp.src(`${config.basepath.build}/assets/${config.versionName}/**/*.css`, { dot: true })
-      .pipe(plugins.postcss([cssnano({
-        discardComments: {removeAll: true},
-      })]))
-      .on('error', console.log)
       .pipe(plugins.insert.prepend(banner))
       .pipe(gulp.dest(`${config.basepath.release}/template-local-ssi/assets/${config.versionName}/`))
       .pipe(gulp.dest(`${config.basepath.release}/template-local/assets/${config.versionName}/`))

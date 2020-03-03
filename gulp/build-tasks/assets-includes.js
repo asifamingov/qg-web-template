@@ -2,16 +2,16 @@
 
 module.exports = function (gulp, plugins, config, dest, local = false, relpath = false) {
   return function (cb) {
-    let src = [
+    const src = [
       `${config.basepath.src}/assets/_project/_blocks/layout/**/*.html`,
     ];
       //.concat(config.build.excludes); //remove concat excludes, remove from gulp-config.json also
 
-    let relLink = {
+    const relLink = {
       regex: new RegExp('="/assets/', 'g'),
       replacement: '="assets/',
     };
-    let cdnLink = {
+    const cdnLink = {
       regex: new RegExp('="/assets/', 'g'),
       replacement: '="https://static.qgov.net.au/assets/',
     };

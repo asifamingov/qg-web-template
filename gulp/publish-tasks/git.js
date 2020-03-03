@@ -17,14 +17,14 @@ const gitFunctions = {
   },
   clone: (url, folder) => {
     return (cb) => {
-      return git.clone(url, {args: folder}, function (err) {
+      return git.clone(url, { args: folder }, function (err) {
         if (err) throw err;
       });
     };
   },
   sync: (from, to, ignore) => {
     return (cb) => {
-      let ignoreFiles = ['.git', '.gitignore'].concat(ignore);
+      const ignoreFiles = ['.git', '.gitignore'].concat(ignore);
       return gulp.src(`${from}/**/*`)
         .pipe(dirSync(path.resolve(from), path.resolve(to), { printSummary: true, ignore: ignoreFiles }));
     };
@@ -33,7 +33,7 @@ const gitFunctions = {
     if (!fs.existsSync(`${config.staticCdnRepo.folder}/assets/${config.versionName}/${pjson.subVersion}`)) {
       return (cb) => {
         return gulp.src(`${config.basepath.static}/assets/${config.versionName}/latest/**/*`)
-          .pipe(gulp.dest(`${config.staticCdnRepo.folder}/assets/${config.versionName}/latest/`, {followSymlinks: false}))
+          .pipe(gulp.dest(`${config.staticCdnRepo.folder}/assets/${config.versionName}/latest/`, { followSymlinks: false }))
           .pipe(gulp.dest(`${config.staticCdnRepo.folder}/assets/${config.versionName}/${pjson.subVersion}/`));
       };
     } else {
@@ -44,7 +44,7 @@ const gitFunctions = {
   },
   updateVersion: (folder, version) => {
     return (cb) => {
-      return gulp.src(path.resolve(folder, 'package.json'), {allowEmpty: true})
+      return gulp.src(path.resolve(folder, 'package.json'), { allowEmpty: true })
         .pipe(replace(/"version": "\d+.\d+.\d+"/, '"version": "' + version + '"'))
         .pipe(gulp.dest(path.resolve(folder)));
     };
@@ -52,7 +52,7 @@ const gitFunctions = {
   add: (folder) => {
     return (cb) => {
       if (folder) process.chdir(path.resolve(folder));
-      return git.exec({args: 'add .'}, function (err, stdout) {
+      return git.exec({ args: 'add .' }, function (err, stdout) {
         if (err) throw err;
       });
     };
@@ -77,7 +77,7 @@ const gitFunctions = {
   push: (folder) => {
     return (cb) => {
       process.chdir(path.resolve(folder));
-      return git.push('origin', ['master'], {args: ' --tags'}, function (err) {
+      return git.push('origin', ['master'], { args: ' --tags' }, function (err) {
         if (err) throw err;
       });
     };

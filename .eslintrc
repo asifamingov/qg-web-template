@@ -30,10 +30,9 @@
           "Property": true,
           "VariableDeclarator": true,
           "ImportDeclaration": true,
-          "ObjectExpression": true,
-        },
-      },
-    ],
-    "no-warning-comments": 1,
-  },
+          "ObjectExpression": true
+        }
+      }
+    ]
+  }
 }

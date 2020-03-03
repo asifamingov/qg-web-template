@@ -17,7 +17,7 @@ const socialLinksList = {
     { title: 'LinkedIn', showTitle: false, icon: renderIcon('fa', 'linkedin') },
     { title: 'Others', showTitle: false, icon: renderIcon('fa', 'share-alt') },
   ],
- /* secondary: [
+  /* secondary: [
     // {title: 'Delicious',    showTitle: true, icon: renderIcon('fa', 'delicious')},
     { title: "Digg", showTitle: true, icon: renderIcon("fa", "digg") },
     // {title: 'Evernote',     showTitle: true, icon: renderIcon('svg', 'evernote', '/assets/v3/images/evernote-logo-white.svg')},
@@ -105,10 +105,10 @@ function getLinks (type) {
 
   // Iterate
   let str = '';
-  for (let prop in socialLinks[type]) {
-    let entry = socialLinks[type][prop];
-    let titleKey = entry.title.toLowerCase();
-    let url = renderSocialURL(titleKey, from, entry.title, domain, description);
+  for (const prop in socialLinks[type]) {
+    const entry = socialLinks[type][prop];
+    const titleKey = entry.title.toLowerCase();
+    const url = renderSocialURL(titleKey, from, entry.title, domain, description);
     let hidden = '';
     if (entry.showTitle !== true) {
       hidden = renderHidden();
