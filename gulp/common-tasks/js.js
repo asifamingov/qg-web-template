@@ -20,51 +20,51 @@ module.exports = function (gulp, plugins, config, webpack, destFolder, type = 'b
       destFolder = [destFolder];
     }
 
-    const webpackSettings = {
-      output: {
-        filename: 'qg-main.js',
-      },
-      module: {
-        loaders: [{
-          test: /\.js$/,
-          exclude: /(node_modules)/,
-          loader: 'babel',
-          query: {
-            presets: ['es2015'],
-          },
-        },
-        {
-          test: /\.js$/,
-          exclude: /(node_modules)/,
-          loader: 'webpack-replace',
-          query: {
-            search: '{{CDN}}',
-            replace: process.env.NODE_ENV === 'prod' ? `https://static.qgov.net.au/assets/${config.versionName}` : `/assets/${config.versionName}`,
-          },
-        },
-        {
-          test: /\.json$/,
-          loader: 'json-loader',
-        },
-        {
-          test: /\.js$/,
-          exclude: /(node_modules)/,
-          loader: 'webpack-replace',
-        },
-        {
-          test: /\.js$/,
-          exclude: /(node_modules)/,
-          loader: 'webpack-replace',
-        },
-        ],
-      },
-      devtool: 'source-map',
-      /*plugins: [
-       new CopyWebpackPlugin([
-       {from: `${config.basepath.src}/assets/_project/_blocks/qg-env.js`},
-       ]),
-       ],*/
-    };
+    // const webpackSettings = {
+    //   output: {
+    //     filename: 'qg-main.js',
+    //   },
+    //   module: {
+    //     loaders: [{
+    //       test: /\.js$/,
+    //       exclude: /(node_modules)/,
+    //       loader: 'babel',
+    //       query: {
+    //         presets: ['es2015'],
+    //       },
+    //     },
+    //     {
+    //       test: /\.js$/,
+    //       exclude: /(node_modules)/,
+    //       loader: 'webpack-replace',
+    //       query: {
+    //         search: '{{CDN}}',
+    //         replace: process.env.NODE_ENV === 'prod' ? `https://static.qgov.net.au/assets/${config.versionName}` : `/assets/${config.versionName}`,
+    //       },
+    //     },
+    //     {
+    //       test: /\.json$/,
+    //       loader: 'json-loader',
+    //     },
+    //     {
+    //       test: /\.js$/,
+    //       exclude: /(node_modules)/,
+    //       loader: 'webpack-replace',
+    //     },
+    //     {
+    //       test: /\.js$/,
+    //       exclude: /(node_modules)/,
+    //       loader: 'webpack-replace',
+    //     },
+    //     ],
+    //   },
+    //   devtool: 'source-map',
+    //   /*plugins: [
+    //    new CopyWebpackPlugin([
+    //    {from: `${config.basepath.src}/assets/_project/_blocks/qg-env.js`},
+    //    ]),
+    //    ],*/
+    // };
 
     // if (type === 'build') {
     //   webpackSettings.devtool = 'source-map';
@@ -75,7 +75,7 @@ module.exports = function (gulp, plugins, config, webpack, destFolder, type = 'b
     // }
 
     return gulp.src(src)
-      .pipe(webpack(webpackSettings))
+      .pipe(webpack(require('./webpack.dev.js')))
       .pipe(plugins.if(typeof destFolder[0] !== 'undefined', gulp.dest(`${dest.base}/${destFolder[0]}/${dest.ext}`)))
       .pipe(plugins.if(typeof destFolder[1] !== 'undefined', gulp.dest(`${dest.base}/${destFolder[1]}/${dest.ext}`)))
       .pipe(plugins.if(typeof destFolder[2] !== 'undefined', gulp.dest(`${dest.base}/${destFolder[2]}/${dest.ext}`)))
