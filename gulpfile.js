@@ -57,7 +57,7 @@ gulp.task('template-pages-to-docs', require('./gulp/build-tasks/template-pages')
 
 const assetDests = ['assets', 'docs/assets'];
 gulp.task('scss', require('./gulp/common-tasks/scss')(gulp, plugins, config, assetDests, addSrc));
-gulp.task('js', require('./gulp/common-tasks/js')(gulp, plugins, config, gulpWebpack, assetDests));
+gulp.task('js', require('./gulp/common-tasks/js')(gulp, plugins, config, gulpWebpack, assetDests, banner));
 
 gulp.task('other-assets-root', require('./gulp/build-tasks/other-assets')(gulp, plugins, config, es, assetDests[0]));
 gulp.task('other-assets-docs', require('./gulp/build-tasks/other-assets')(gulp, plugins, config, es, assetDests[1]));
@@ -77,6 +77,7 @@ gulp.task('replace-links', require('./gulp/release-tasks/replace-links')(gulp, p
 gulp.task('release-files', require('./gulp/release-tasks/files')(gulp, plugins, config, es, webpack, path, banner));
 
 gulp.task('release', gulp.series(
+  'js',
   'release-files',
   'scss-src',
   'release-other-files',

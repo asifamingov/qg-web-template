@@ -74,8 +74,16 @@ module.exports = function (gulp, plugins, config, webpack, destFolder, type = 'b
     //   ];
     // }
 
-    return gulp.src(src)
-      .pipe(webpack(require('./webpack.dev.js')))
-      .pipe(plugins.if(typeof destFolder[0] !== 'undefined', gulp.dest(`${dest.base}/${destFolder[0]}/${dest.ext}`)));
+    if (process.env.NODE_ENV === 'prod') {
+      return gulp.src(src)
+        .pipe(webpack(require('./webpack.prod.js')))
+        .pipe(gulp.dest(`${config.basepath.release}/template-local-ssi/assets/${config.versionName}/latest/js/`))
+        .pipe(gulp.dest(`${config.basepath.release}/template-local/assets/${config.versionName}/latest/js/`))
+        .pipe(gulp.dest(`${config.basepath.static}/assets/${config.versionName}/latest/js/`));
+    } else {
+      return gulp.src(src)
+        .pipe(webpack(require('./webpack.dev.js')))
+        .pipe(plugins.if(typeof destFolder[0] !== 'undefined', gulp.dest(`${dest.base}/${destFolder[0]}/${dest.ext}`)));
+    }
   };
 };

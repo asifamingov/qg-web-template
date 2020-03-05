@@ -4,14 +4,13 @@ module.exports = {
   output: {
     filename: 'qg-main.js',
   },
-  mode: 'development',
+  mode: 'production',
   devServer: {
     contentBase: path.join(__dirname, '../build'),
     compress: true,
     port: 3000,
     overlay: true,
   },
-  devtool: 'cheap-module-eval-source-map',
   module: {
     rules: [
       {
