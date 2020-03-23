@@ -7,7 +7,7 @@
  */
 
 /* ========================================================================
- * Extends Bootstrap v3.1.1
+ * Extends Bootstrap v4.1
 
  * Copyright (c) <2014> eBay Software Foundation
 
@@ -217,7 +217,7 @@
 
     /*
     // Disabled because it was creating accessibility issues
-    
+
     var $colltabs =  $('[data-toggle="collapse"]')
     $colltabs.attr({ 'role':'tab', 'aria-selected':'false', 'aria-expanded':'false' })
     $colltabs.each(function( index ) {

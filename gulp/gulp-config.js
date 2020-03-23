@@ -4,10 +4,10 @@ const path        = require('path');
 const pjson       = require('../package.json');
 
 module.exports = {
-  versionName: 'v3.1',
+  versionName: 'v4',
   version: {
-    major: 3,
-    minor: 1,
+    major: 4,
+    minor: 0,
     patch: 0,
   },
   phase: 'Alpha',
@@ -29,6 +29,7 @@ module.exports = {
   staticCdnRepo: {
     url: 'ssh://git@servicesmadesimpler.govnet.qld.gov.au:7999/cdn/static-qld_swe-v3_assets.git',
     folder: 'static-qld_swe-v3_assets',
+    webpath: 'https://static.qgov.net.au/assets/',
   },
   projects: ['core'], // 'cue'
   build: {
