@@ -45,31 +45,30 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var _qgEnv = __webpack_require__(1);var _qgEnv2 = _interopRequireDefault(_qgEnv);
-	
+	__webpack_require__(1);
 	
 	__webpack_require__(2);
 	
 	
-	__webpack_require__(8);
 	__webpack_require__(9);
-	
-	
 	__webpack_require__(10);
 	
 	
-	__webpack_require__(29);
-	var _sectionNav = __webpack_require__(30);var _sectionNav2 = _interopRequireDefault(_sectionNav);
-	var _stepNav = __webpack_require__(31);var _stepNav2 = _interopRequireDefault(_stepNav);
-	var _shareLinks = __webpack_require__(33);var _shareLinks2 = _interopRequireDefault(_shareLinks);
-	__webpack_require__(34);
+	__webpack_require__(11);
+	
+	
+	__webpack_require__(30);
+	var _sectionNav = __webpack_require__(31);var _sectionNav2 = _interopRequireDefault(_sectionNav);
+	var _stepNav = __webpack_require__(32);var _stepNav2 = _interopRequireDefault(_stepNav);
+	var _shareLinks = __webpack_require__(34);var _shareLinks2 = _interopRequireDefault(_shareLinks);
 	__webpack_require__(35);
 	__webpack_require__(36);
-	var _feedbackForm = __webpack_require__(37);var _feedbackForm2 = _interopRequireDefault(_feedbackForm);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} // Layout imports
+	__webpack_require__(37);
+	var _feedbackForm = __webpack_require__(38);var _feedbackForm2 = _interopRequireDefault(_feedbackForm);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} // Layout imports
 	// utils import
 	(function () {
 	  'use strict';
-	  var franchiseTitle = _qgEnv2.default && _qgEnv2.default.swe && _qgEnv2.default.swe.franchiseTitle;
+	  var franchiseTitle = window.qg.swe.franchiseTitle;
 	  _sectionNav2.default.highlightNavItem();
 	  _stepNav2.default.init();
 	  _feedbackForm2.default.init(franchiseTitle);
@@ -82,15 +81,13 @@
 /* 1 */
 /***/ (function(module, exports) {
 
-	'use strict'; // All the environment related SWE3 code
+	"use strict";var env = function () {
+	  // All the environment related SWE3 code
+	  window.qg = window.qg || {};
+	  window.qg.swe = window.qg.swe || {};
+	}();
 	
-	window.qg = window.qg || {};
-	window.qg.swe = window.qg.swe || {};
-	window.qg.cdn = window.qg.swe.isProduction === false ? 'https://beta-static.qgov.net.au' : 'https://static.qgov.net.au';
-	window.qg.swe.assets = '/assets/v3.1/latest/';
-	
-	window.qg.swe.paths = {
-	  images: window.qg.swe.assets + 'images' };
+	module.exports = env;
 
 /***/ }),
 /* 2 */
@@ -100,6 +97,7 @@
 	__webpack_require__(4);
 	__webpack_require__(5);
 	__webpack_require__(7);
+	__webpack_require__(8);
 
 /***/ }),
 /* 3 */
@@ -173,10 +171,8 @@
 	
 	  // check if the hostname contains a specific word and assign the key accordingly
 	  if (window.location.hostname.search(/\bgithub\b/) !== -1) {
-	    console.log('docs key in use');
 	    googleApiKey = _qgGoogleKeys2.default.defGoogle.docs;
 	  } else if (window.location.hostname.search(/\bdev\b|\btest\b|\blocalhost\b/) !== -1) {
-	    console.log('test key in use');
 	    googleApiKey = _qgGoogleKeys2.default.defGoogle.test;
 	  } else {
 	    googleApiKey = _qgGoogleKeys2.default.defGoogle.prod;
@@ -281,6 +277,31 @@
 
 /***/ }),
 /* 8 */
+/***/ (function(module, exports) {
+
+	'use strict';function browserSupportsDateInput() {
+	  var i = document.createElement('input');
+	  i.setAttribute('type', 'date');
+	  return i.type !== 'text';
+	}
+	if (!browserSupportsDateInput() && $('input[type=\'date\']').length > 0) {
+	  $.getScript('https://static.qgov.net.au/assets/v3.1/latest/lib/ext/nodep-date-input-polyfill/nodep-date-input-polyfill.dist.js', function () {
+	    console.log('date polyfill loaded');
+	  });
+	}
+	if ($('input[class=\'qg-date-input\']').length > 0) {
+	  $.getScript('https://static.qgov.net.au/assets/v3.1/latest/lib/ext/jquery-ui-bundle/jquery-ui.min.js', function () {
+	    $('head').append($("<link rel='stylesheet' href='https://static.qgov.net.au/assets/v3.1/latest/lib/ext/jquery-ui-bundle/jquery-ui.min.css' type='text/css' media='screen' />"));
+	    $('.qg-date-input').datepicker({
+	      dateFormat: 'dd/mm/yy',
+	      changeYear: true,
+	      changeMonth: true });
+	
+	  });
+	}
+
+/***/ }),
+/* 9 */
 /***/ (function(module, exports) {
 
 	'use strict';var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {return typeof obj;} : function (obj) {return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;}; /*! Form validation - v1.1.1 - 2014-04-09
@@ -1924,7 +1945,7 @@
 	//# sourceMappingURL=qg-forms.js.map
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports) {
 
 	'use strict'; /*
@@ -2115,13 +2136,12 @@
 	}); // onready
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';__webpack_require__(11);
-	__webpack_require__(12);
+	'use strict';__webpack_require__(12);
 	__webpack_require__(13);
-	__webpack_require__(15);
+	__webpack_require__(14);
 	__webpack_require__(16);
 	__webpack_require__(17);
 	__webpack_require__(18);
@@ -2134,13 +2154,14 @@
 	__webpack_require__(25);
 	__webpack_require__(26);
 	__webpack_require__(27);
+	__webpack_require__(28);
 	
-	var _accessibility = __webpack_require__(28);var _accessibility2 = _interopRequireDefault(_accessibility);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+	var _accessibility = __webpack_require__(29);var _accessibility2 = _interopRequireDefault(_accessibility);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 	
 	_accessibility2.default.init();
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports) {
 
 	'use strict'; /*global jQuery*/
@@ -2181,7 +2202,7 @@
 	})(jQuery);
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports) {
 
 	/**
@@ -2298,14 +2319,14 @@
 	})();
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';$(function () {
 	    'use strict';
 	
 	    // Polyfill for position: sticky;
-	    var Stickyfill = __webpack_require__(14);
+	    var Stickyfill = __webpack_require__(15);
 	    var stickyfill = Stickyfill();
 	    stickyfill.add($('.sticky')[0]);
 	
@@ -2342,7 +2363,7 @@
 	});
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports) {
 
 	/*!
@@ -2822,7 +2843,7 @@
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports) {
 
 	'use strict';$(function () {
@@ -3591,7 +3612,7 @@
 	});
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports) {
 
 	'use strict'; /**
@@ -3603,7 +3624,7 @@
 	  'use strict';
 	  var licenceOptions = {
 	    url: '//creativecommons.org/licenses/',
-	    imgSrc: qg.cdn + qg.swe.paths.images + '/licences/',
+	    imgSrc: 'https://static.qgov.net.au/assets/v3.1/latest/images/licences/',
 	    types: {
 	      'by': {
 	        'name': 'Attribution',
@@ -3731,7 +3752,7 @@
 	})(jQuery, qg);
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports) {
 
 	/*aside carousel play and pause feature*/
@@ -3784,50 +3805,70 @@
 	})(jQuery);
 
 /***/ }),
-/* 18 */
-/***/ (function(module, exports) {
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';(function ($) {
-	  'use strict';
-	  var quickExit = {
-	    el: '#qg-quick-exit',
-	    init: function init() {
-	      $(this.el).empty().append(this.template);
-	      this.methods();
-	    },
-	    template: '<header><strong>Quick exit</strong></header><ul><li><a target="_top" data-accesskey="Esc" href="http://www.abc.net.au/tv/epg/#/" title="ABC"><img src="https://www.qld.gov.au/_resources/images/icons/abc-bw.png" alt="ABC"></a></li></ul><footer><strong>press \'Esc\'</strong></footer>',
-	    methods: function methods() {
-	      var quickExitLinks = $(this.el).find('a');
-	      var escLink = $(this.el).find('a[data-accesskey="Esc"]').attr('href');
-	      // action on esc key press
+	'use strict';
+	(function () {
+	  var $quickExit = $('.qg-quick-exit');
+	  var Stickyfill = __webpack_require__(15);
+	  if ($quickExit.length > 0 && $('.qg-quick-exit__button').length > 0) {
+	    var quickExitInit = function quickExitInit() {
+	      var button = document.querySelector('.qg-quick-exit__button');
+	      var escapeSite = 'https://www.google.com.au/';
+	      var hotkey = 27;
 	
-	      if ($(this.el).length > 0) {
-	        $(document).keydown(function (e) {
-	          if (e.keyCode === 27) {
-	            window.location.replace(escLink);
-	            return false;
-	          }
-	        });
+	      // add click handler
+	      button.onclick = function (e) {
+	        /*globals quickExit*/
+	        return quickExit(escapeSite);
+	      };
 	
-	        // clicking on the quick exit block
-	        $(document).on('click', this.el, function () {
-	          window.location.replace(escLink);
-	        });
-	
-	        //clicking on the links inside the quick exit block
-	        quickExitLinks.click(function (e) {
-	          e.stopPropagation();
-	          e.preventDefault();
-	          window.location.replace($(this).attr('href'));
-	        });
+	      // load a plugin only on IE browser to support position:sticky
+	      if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
+	        Stickyfill.add($quickExit);
 	      }
-	    } };
 	
-	  quickExit.init();
-	})(jQuery);
+	      // add hotkey trigger
+	      document.addEventListener('keydown', function (e) {
+	        if (e.keyCode === hotkey) {
+	          quickExit(escapeSite);
+	
+	          if (e) {
+	            // stop escape from cancelling redirect
+	            e.preventDefault();
+	
+	            // early IEs don't have preventDefault
+	            e.returnValue = false;
+	          }
+	
+	          return false;
+	        }
+	      });
+	    };
+	    window.quickExit = function (site) {
+	      // then redirect to a non-sensitive site
+	      window.open(site, '_blank');
+	      window.location.replace(site);
+	
+	      // remove as much info from URL as possible
+	      if (window.history) {
+	        try {
+	          window.history.replaceState({}, '', '/');
+	        } catch (e) {
+	
+	        }
+	      }
+	
+	      // disable default event handling
+	      return false;
+	    };
+	    quickExitInit();
+	  }
+	})();
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports) {
 
 	'use strict';(function ($) {
@@ -3845,7 +3886,7 @@
 	})(jQuery);
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports) {
 
 	'use strict'; /**
@@ -3858,33 +3899,32 @@
 	(function ($) {
 	  var accordion = '.qg-accordion';
 	  if ($(accordion).length > 0) {
-	    var tabindex = 1;
 	    var accordionControls = 'input[name=control]';
+	    var accItem = $(accordion).find('article');
 	    var linkedpanel = window.location.hash && $('input[aria-controls=' + window.location.hash.substring(1) + ']');
 	
+	    // keyboard accessibility
+	    var a11yClick = function a11yClick(event) {
+	      if (event.type === 'click') {
+	        return true;
+	      } else if (event.type === 'keypress') {
+	        var code = event.charCode || event.keyCode;
+	        if (code === 32 || code === 13) {
+	          return true;
+	        }
+	      } else {
+	        return false;
+	      }
+	    };
+	
 	    //Handle events of accordion inputs
-	    $(accordion).find('article input').on('change', function () {
+	    $(accordion).find('article input[name=tabs]').on('change', function () {
 	      var checkedStatus = $(this).prop('checked');
 	      var controlledPanedId = $('#' + $(this).attr('aria-controls'));
 	      $(this).
 	      attr('aria-expanded', checkedStatus) //sets aria
 	      .parents(accordion).find(accordionControls).prop('checked', false); //clears expand/collapse selection
 	      controlledPanedId.attr('aria-hidden', !checkedStatus);
-	    });
-	
-	    //expand all click
-	    // label selector is to provide backward compatibility in case projects are using old markup
-	    $('.qg-acc-controls .expand, label[for=\'expand\']').click(function (e) {
-	      e.preventDefault();
-	      $(this).focus();
-	      $(this).parents('.qg-accordion').find('input:checkbox').prop('checked', true);
-	    });
-	
-	    // collapse all click
-	    // label selector is to provide backward compatibility in case projects are using old markup
-	    $('.qg-acc-controls .collapse, label[for=\'collapse\']').click(function (e) {
-	      e.preventDefault();
-	      $(this).parents('.qg-accordion').find('input:checkbox').prop('checked', false);
 	    });
 	
 	    // open on page load
@@ -3901,31 +3941,67 @@
 	    hashTrigger();
 	    window.onhashchange = hashTrigger;
 	
-	    // inserting tab index dynamically
-	    // label selector is to provide backward compatibility in case projects are using old markup
-	    $('.qg-accordion .acc-heading, .qg-acc-controls .expand, .qg-acc-controls .collapse, label[for="expand"], label[for="collapse"]').each(function () {
-	      if (this.type !== 'hidden') {
-	        var $input = $(this);
-	        $input.attr('tabindex', tabindex);
-	        tabindex++;
-	      }
-	    });
 	    $('input[name=tabs]').click(function () {
 	      $(this).parent('article').find('.acc-heading').focus();
 	    });
 	
 	    // highlight title on hover
-	    $('.qg-accordion article').hover(function () {
+	    accItem.hover(function () {
 	      $(accordion).find('.title').removeClass('ht');
 	      $(this).find('.title').addClass('ht');
 	    }, function () {
 	      $(accordion).find('.title').removeClass('ht');
 	    });
+	
+	    // expand/collapse on enter keypress
+	    accItem.find('.acc-heading').on('keypress', function (event) {
+	      if (event.target === event.currentTarget) {
+	        event.preventDefault();
+	        if (a11yClick(event) === true) {
+	          var parent = $(this).parent();
+	          if (parent.find('input[name="tabs"]:checked').length > 0) {
+	            parent.find('input[name="tabs"]').prop('checked', false);
+	          } else {
+	            parent.find('input[name="tabs"]').prop('checked', true);
+	          }
+	        }
+	      }
+	    });
+	    accItem.find('.acc-heading').on('click', function (event) {
+	      if (event.target === event.currentTarget) {
+	        if (event.clientX !== 0) {
+	          var parent = $(this).parent();
+	          if (parent.find('input[name="tabs"]:checked').length > 0) {
+	            parent.find('input[name="tabs"]').prop('checked', false);
+	          } else {
+	            parent.find('input[name="tabs"]').prop('checked', true);
+	          }
+	          return false;
+	        }
+	      }
+	    });
+	    //expand all click
+	    // label selector is to provide backward compatibility in case projects are using old markup
+	    $('.qg-acc-controls .expand, label[for=\'expand\']').on('click keypress', function (event) {
+	      if (a11yClick(event) === true) {
+	        $(this).parents('.qg-accordion').find('input:checkbox').prop('checked', true);
+	        event.preventDefault();
+	      }
+	    });
+	
+	    // collapse all click
+	    // label selector is to provide backward compatibility in case projects are using old markup
+	    $('.qg-acc-controls .collapse, label[for=\'collapse\']').on('click keypress', function (event) {
+	      if (a11yClick(event) === true) {
+	        $(this).parents('.qg-accordion').find('input:checkbox').prop('checked', false);
+	        event.preventDefault();
+	      }
+	    });
 	  }
 	})(jQuery);
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4117,7 +4193,7 @@
 	                    * */ /*globals grecaptcha, qg*/
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports) {
 
 	'use strict'; /*global qg, jQuery, google*/
@@ -4337,7 +4413,7 @@
 	})(qg, jQuery);
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports) {
 
 	'use strict';(function ($) {
@@ -4352,7 +4428,7 @@
 	})(jQuery);
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports) {
 
 	'use strict';(function ($) {
@@ -4385,7 +4461,7 @@
 	})(jQuery);
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports) {
 
 	'use strict';if ($("script[src*='jquery.fancybox']").length === 0) {
@@ -4454,7 +4530,7 @@
 	}
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports) {
 
 	'use strict';(function ($) {
@@ -4511,7 +4587,7 @@
 	})(jQuery);
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports) {
 
 	'use strict';$(function () {
@@ -5051,7 +5127,7 @@
 	});
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports) {
 
 	/* ========================================================================
@@ -5095,7 +5171,7 @@
 	module.exports = { init: init };
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports) {
 
 	'use strict';(function ($) {
@@ -5106,7 +5182,7 @@
 	})(jQuery);
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -5149,10 +5225,10 @@
 	module.exports = activeSideNav;
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';Object.defineProperty(exports, "__esModule", { value: true });var _breakpoints = __webpack_require__(32);var _breakpoints2 = _interopRequireDefault(_breakpoints);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+	'use strict';Object.defineProperty(exports, "__esModule", { value: true });var _breakpoints = __webpack_require__(33);var _breakpoints2 = _interopRequireDefault(_breakpoints);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 	var stepNav = {
 	  config: {
 	    $guideSubNav: $('#qg-section-nav .guide-sub-nav'),
@@ -5213,7 +5289,7 @@
 	stepNav;
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports) {
 
 	"use strict";Object.defineProperty(exports, "__esModule", { value: true });var breakpoints = function () {
@@ -5228,7 +5304,7 @@
 	breakpoints;
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports) {
 
 	'use strict'; /**
@@ -5358,7 +5434,7 @@
 	module.exports = { init: init };
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports) {
 
 	'use strict';(function () {
@@ -5386,7 +5462,7 @@
 	})();
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports) {
 
 	'use strict';(function () {
@@ -5398,7 +5474,7 @@
 	})();
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports) {
 
 	'use strict'; /**
@@ -5419,7 +5495,7 @@
 	});
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports) {
 
 	'use strict'; /**
@@ -5500,7 +5576,13 @@
 	  $('#feedback-hidden-inputs').append(newHiddenInput);
 	}
 	function init(franchiseTitle) {
-	  addHiddenInput('franchise', location.pathname.split('/')[1]);
+	  var franchise;
+	  if (franchiseTitle) {
+	    franchise = franchiseTitle;
+	  } else {
+	    franchise = location.pathname.split('/')[1];
+	  }
+	  addHiddenInput('franchise', franchise);
 	  addHiddenInput('page-title', $(document).find('title').text());
 	  addHiddenInput('page-url', window.location.href);
 	  addHiddenInput('page-referer', document.referrer);

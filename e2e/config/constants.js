@@ -1,6 +1,6 @@
 module.exports = {
   APP_URL: "http://localhost:8086",
-  CHROME_PATH: "./node_modules/chromium/lib/chromium/chrome-linux/chrome",
+  CHROME_PATH: "./node_modules/chromium/lib/chromium/chrome-mac/Chromium.app/Contents/MacOS/Chromium",
   BT_SM: 576,
   BT_MD: 768,
   BT_LG: 992,
@@ -9,3 +9,4 @@ module.exports = {
   WT: 3000,
   TO: 30000
 };
+
