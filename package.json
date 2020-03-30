@@ -13,7 +13,7 @@
     "clean": "gulp clean-build && gulp clean-release",
     "prebuild": "gulp clean-build",
     "build": "gulp build && node gulp/build-tasks/node-docs-flatten.js && gulp wt-updateVersion",
-    "test": "jest",
+    "test": "jest --detectOpenHandles",
     "postbuild": "gulp clean-redundant-build",
     "prerelease": "gulp clean-release",
     "release": "export NODE_ENV=prod && npm run build && gulp release && node gulp/release-tasks/node-template-flatten.js && gulp replace-links",
