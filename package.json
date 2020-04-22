@@ -20,7 +20,7 @@
     "postrelease": "gulp clean-redundant-release",
     "start": "yarn build && gulp watch",
     "watch": "gulp watch",
-    "publish-npm": "gulp wt-clean && gulp wt-clone && gulp wt-sync && gulp wt-updateVersion && gulp wt-npm && gulp wt-add && gulp wt-commit && gulp wt-tag && gulp wt-push",
+    "publish-npm": "gulp wt-clean && gulp wt-clone && gulp wt-sync && gulp wt-updateVersion && gulp wt-add && gulp wt-commit && gulp wt-npm",
     "create-swe-release": "gulp swe-add && gulp swe-tag && gulp swe-commit && gulp swe-push",
     "publish-cdn": "gulp cdn-clean && gulp cdn-clone && gulp cdn-transfer && gulp cdn-add && gulp cdn-commit && gulp cdn-push",
     "prepublish": "npm run release",
@@ -89,6 +89,7 @@
     "node-ssi": "^0.3.2",
     "npm": ">=6.13.4",
     "puppeteer": "^1.20.0",
+    "release-it": "^13.5.5",
     "run-sequence": "^1.1.5",
     "sass-loader": "^6.0.5",
     "style-loader": "^0.17.0",
@@ -97,7 +98,8 @@
     "vinyl-fs": "^3.0.3",
     "webpack": "^2.5.1",
     "webpack-replace": "^1.0.0",
-    "webpack-stream": "^3.2.0"
+    "webpack-stream": "^3.2.0",
+    "yargs": "^15.3.1"
   },
   "dependencies": {
     "bootstrap": "^4.1.3",
