@@ -23,8 +23,8 @@ module.exports = {
     node_modules: 'node_modules',
   },
   webTemplateRepo: {
-    url: 'https://github.com/qld-gov-au/web-template-release.git',
-    folder: 'web-template-release',
+    url: 'https://github.com/asifamingov/node-package-testing.git',
+    folder: 'node-package-testing',
   },
   staticCdnRepo: {
     url: 'ssh://git@servicesmadesimpler.govnet.qld.gov.au:7999/cdn/static-qld_swe-v3_assets.git',
